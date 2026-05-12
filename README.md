@@ -4,7 +4,7 @@
 
 This is my personal developer portfolio built with **Next.js**. It showcases my skills, projects, and experience as a **Full Stack Developer**. The goal of this portfolio is to create a clean, modern, and responsive website that represents my work and makes it easy for clients and collaborators to connect with me.
 
-## 🚀 Features
+## Features
 
 - Modern and clean UI
 - Fully responsive design
@@ -13,17 +13,17 @@ This is my personal developer portfolio built with **Next.js**. It showcases my 
 - Sections for About, Skills, Projects, and Contact
 - Optimized performance
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Next.js
 - React.js
 - Tailwind CSS
 - JavaScript
 
-## 📌 Purpose
+## Purpose
 
 This portfolio represents my journey as a developer and highlights my passion for building scalable and user-friendly web applications.
 
-## 📬 Contact
+## Contact
 
 If you'd like to collaborate or work together, feel free to connect with me.
