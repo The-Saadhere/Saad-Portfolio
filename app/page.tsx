@@ -42,8 +42,8 @@ const handleSend = async () => {
                     <h1 className='text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 dark:text-white leading-none'>Saad <br /><span className='text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500'>kamal</span>
                     </h1>                <p className='text-2xl md:text-3xl text-gray-700 dark:text-gray-300 font-medium'>Full Stack Developer</p>
                   </div>
-                  <p className='text-lg text-gray-600 dark:text-gray-400 max-w-xl leading-relaxed'></p>
-                  <div className='flex flex-wrap gap-4'>Full Stack Developer specializing in modern, scalable web applications, available for freelance projects and remote internship opportunities.
+                  <p className='text-lg text-gray-600 dark:text-gray-400 max-w-xl leading-relaxed'>Full Stack Developer specializing in modern, scalable web applications, available for freelance projects and remote internship opportunities.</p>
+                  <div className='flex flex-wrap gap-4'>
                     <button className='group px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2 shadow-lg'>
                       <span className="font-semibold">
                        <a href='#Projects'> View My Work</a>
