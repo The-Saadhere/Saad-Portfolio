@@ -4,7 +4,9 @@ import { Sparkles, Github, Linkedin, Mail, CodeXml, Laptop, Zap, ArrowUpRight, E
 import ScrollReveal from '@/components/ScrollReveal';
 import { useState } from 'react';
 export default function Home() {
-const tags = ["Next.js", "JavaScript", "Resend", "MongoDB"];
+const tags = ["Next.js", "TypeScript", "Resend", "MongoDB", "Zustand"];
+const tags2 = ["Next.js", "JavaScript", "MongoDB"];
+const tags3 = ["React.js", "JavaScript", "LocalStorage"];
 const [name, setName] = useState('');
 const [email, setEmail] = useState('');
 const [subject, setSubject] = useState('');
@@ -71,6 +73,7 @@ const handleSend = async () => {
             </ScrollReveal>
           </div>
         </section>
+        
         <section className='md:py-32 py-10 px-6 dark:bg-gray-900 transition-colors relative overflow-hidden' id='About'><div className='container mx-auto relative z-10'>
           <div className='max-w-6xl mx-auto'>
             <ScrollReveal>
@@ -117,6 +120,281 @@ const handleSend = async () => {
             </ScrollReveal>
           </div>
         </div>
+        </section>
+        <section id="Projects" className="md:py-32 py-10 px-6 bg-gray-50 dark:bg-gray-800 transition-colors">
+          <div className='container mx-auto'>
+               <div className="max-w-7xl mx-auto" >
+                <ScrollReveal delay={0.3}>
+                <div className='md:mb-20 mb-10'>
+                  <h2 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white md:mb-6 mb-4">
+                    Featured <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500">Projects</span>
+
+                  </h2>
+                  <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
+                    Showcasing my work in full-stack development and problem-solving
+                  </p>
+                </div>
+                <div className="space-y-6">
+           <div className='group relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 lg:h-[500px]'>
+ <div className="group grid lg:grid-cols-2 h-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm bg-white dark:bg-gray-900">
+      {/* Image Side */}
+      <div className="relative overflow-hidden h-52 sm:h-64 lg:h-full">
+        <Image
+          src="/dp.png"
+          alt="E-Commerce Platform"
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+
+      {/* Content Side */}
+      <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-center">
+        {/* Badge */}
+        <span className="inline-block text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 px-3 py-1 rounded-full mb-3 w-fit">
+          Featured Project
+        </span>
+
+        {/* Title */}
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white mb-3">
+          Fashion Stylized
+            </h3>
+
+        {/* Description */}
+        <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg mb-5 leading-relaxed line-clamp-3 lg:line-clamp-none">
+          A full-featured e-commerce platform with product management, shopping
+          cart, user authentication, and secure checkout with real-time
+          inventory updates.
+        </p>
+
+        {/* Tech Tags */}
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-8">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-1 sm:px-4 sm:py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-medium border border-gray-200 dark:border-gray-700"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-2 sm:gap-4">
+          {/* GitHub */}
+          <a
+            href="https://github.com/SaadkamalShaikhdev/fashionstylized"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-300 font-semibold text-sm sm:text-base"
+          >
+            <Github size={16} className="shrink-0" />
+            <span>Code</span>
+            <ArrowUpRight
+              size={14}
+              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
+            />
+          </a>
+
+          {/* Live Demo */}
+          <a
+            href="https://www.fashionstylized.store/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 transition-all duration-300 font-semibold shadow-lg text-sm sm:text-base"
+          >
+            <ExternalLink size={16} className="shrink-0" />
+            <span>Live Demo</span>
+            <ArrowUpRight
+              size={14}
+              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div className='group relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 lg:h-[500px]'>
+ <div className="group grid lg:grid-cols-2 h-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm bg-white dark:bg-gray-900">
+      {/* Image Side */}
+      <div className="relative overflow-hidden h-52 sm:h-64 lg:h-full">
+        <Image
+          src="/urlshortener.png"
+          alt="Url Shortener platfrom"
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+
+      {/* Content Side */}
+      <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-center">
+
+        {/* Title */}
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white mb-3">
+          MiniLink
+            </h3>
+
+        {/* Description */}
+        <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg mb-5 leading-relaxed line-clamp-3 lg:line-clamp-none">
+         A modern URL shortener with secure authentication using NextAuth, allowing users to create short links and track click analytics. Logged-in users can monitor link performance with accurate click counting and manage their URLs efficiently.
+        </p>
+
+        {/* Tech Tags */}
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-8">
+          {tags2.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-1 sm:px-4 sm:py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-medium border border-gray-200 dark:border-gray-700"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-2 sm:gap-4">
+          {/* GitHub */}
+          <a
+            href="https://github.com/SaadkamalShaikhdev/MiniLink"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-300 font-semibold text-sm sm:text-base"
+          >
+            <Github size={16} className="shrink-0" />
+            <span>Code</span>
+            <ArrowUpRight
+              size={14}
+              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
+            />
+          </a>
+
+          {/* Live Demo */}
+          <a
+            href="https://mini-link-five.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 transition-all duration-300 font-semibold shadow-lg text-sm sm:text-base"
+          >
+            <ExternalLink size={16} className="shrink-0" />
+            <span>Live Demo</span>
+            <ArrowUpRight
+              size={14}
+              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div className='group relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 lg:h-[500px]'>
+ <div className="group grid lg:grid-cols-2 h-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm bg-white dark:bg-gray-900">
+      {/* Image Side */}
+      <div className="relative overflow-hidden h-52 sm:h-64 lg:h-full">
+        <Image
+          src="/passopp.png"
+          alt="Passworn Manager Platform"
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+
+      {/* Content Side */}
+      <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-center">
+
+        {/* Title */}
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white mb-3">
+          PassOp
+            </h3>
+
+        {/* Description */}
+        <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg mb-5 leading-relaxed line-clamp-3 lg:line-clamp-none">
+        A lightweight password manager that securely stores user credentials in localStorage for quick and easy access. Features a clean interface to save, view, and manage passwords directly in the browser without relying on external databases.
+        </p>
+
+        {/* Tech Tags */}
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-8">
+          {tags3.map((tag) => (
+            <span
+              key={tag}
+              className="px-2.5 py-1 sm:px-4 sm:py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-medium border border-gray-200 dark:border-gray-700"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-2 sm:gap-4">
+          {/* GitHub */}
+          <a
+            href="https://github.com/SaadkamalShaikhdev/PassOP"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-300 font-semibold text-sm sm:text-base"
+          >
+            <Github size={16} className="shrink-0" />
+            <span>Code</span>
+            <ArrowUpRight
+              size={14}
+              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
+            />
+          </a>
+
+          {/* Live Demo */}
+          <a
+            href="https://pass-op-three-wine.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 transition-all duration-300 font-semibold shadow-lg text-sm sm:text-base"
+          >
+            <ExternalLink size={16} className="shrink-0" />
+            <span>Live Demo</span>
+            <ArrowUpRight
+              size={14}
+              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+                </div></ScrollReveal>
+                <ScrollReveal delay={0.2}>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 md:mt-20">
+                  <div className='bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105'>
+                    <p className='text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500 mb-2'>
+                      10+
+                    </p>
+                    <p className='text-sm text-gray-600 dark:text-gray-400 font-medium'>Projects Completed</p>
+                  </div>
+                  <div className='bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105'>
+                    <p className='text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500 mb-2'>
+                      15+
+                    </p>
+                    <p className='text-sm text-gray-600 dark:text-gray-400 font-medium'>Technologies</p>
+                  </div>
+                  <div className='bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105'>
+                    <p className='text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500 mb-2'>
+                      100+
+                    </p>
+                    <p className='text-sm text-gray-600 dark:text-gray-400 font-medium'>Git Commits</p>
+                  </div>
+                  <div className='bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105'>
+                    <p className='text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500 mb-2'>
+                      100%
+                    </p>
+                    <p className='text-sm text-gray-600 dark:text-gray-400 font-medium'>Client satisfaction</p>
+                  </div>
+                </div>
+                </ScrollReveal>
+               </div>
+                </div>
         </section>
         <section className='md:py-32 py-10 px-6 dark:bg-gray-900 transition-colors relative overflow-hidden' id='Skill'>
           <div className='container mx-auto relative z-10'>
@@ -257,281 +535,7 @@ const handleSend = async () => {
             </div>
             </div>     
         </section>
-        <section id="Projects" className="md:py-32 py-10 px-6 bg-gray-50 dark:bg-gray-800 transition-colors">
-          <div className='container mx-auto'>
-               <div className="max-w-7xl mx-auto" >
-                <ScrollReveal delay={0.3}>
-                <div className='md:mb-20 mb-10'>
-                  <h2 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white md:mb-6 mb-4">
-                    Featured <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500">Projects</span>
-
-                  </h2>
-                  <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-                    Showcasing my work in full-stack development and problem-solving
-                  </p>
-                </div>
-                <div className="space-y-6">
-           <div className='group relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 lg:h-[500px]'>
- <div className="group grid lg:grid-cols-2 h-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm bg-white dark:bg-gray-900">
-      {/* Image Side */}
-      <div className="relative overflow-hidden h-52 sm:h-64 lg:h-full">
-        <Image
-          src="/fashion.png"
-          alt="E-Commerce Platform"
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
-
-      {/* Content Side */}
-      <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-center">
-        {/* Badge */}
-        <span className="inline-block text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 px-3 py-1 rounded-full mb-3 w-fit">
-          Featured Project
-        </span>
-
-        {/* Title */}
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white mb-3">
-          Fashion Stylized
-            </h3>
-
-        {/* Description */}
-        <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg mb-5 leading-relaxed line-clamp-3 lg:line-clamp-none">
-          A full-featured e-commerce platform with product management, shopping
-          cart, user authentication, and secure checkout with real-time
-          inventory updates.
-        </p>
-
-        {/* Tech Tags */}
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-8">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-1 sm:px-4 sm:py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-medium border border-gray-200 dark:border-gray-700"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex gap-2 sm:gap-4">
-          {/* GitHub */}
-          <a
-            href="https://github.com/SaadkamalShaikhdev/fashionstylized"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-300 font-semibold text-sm sm:text-base"
-          >
-            <Github size={16} className="shrink-0" />
-            <span>Code</span>
-            <ArrowUpRight
-              size={14}
-              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
-            />
-          </a>
-
-          {/* Live Demo */}
-          <a
-            href="https://www.fashionstylized.store/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 transition-all duration-300 font-semibold shadow-lg text-sm sm:text-base"
-          >
-            <ExternalLink size={16} className="shrink-0" />
-            <span>Live Demo</span>
-            <ArrowUpRight
-              size={14}
-              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
-            />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div className='group relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 lg:h-[500px]'>
- <div className="group grid lg:grid-cols-2 h-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm bg-white dark:bg-gray-900">
-      {/* Image Side */}
-      <div className="relative overflow-hidden h-52 sm:h-64 lg:h-full">
-        <Image
-          src="/urlshortener.png"
-          alt="Url Shortener platfrom"
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
-
-      {/* Content Side */}
-      <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-center">
-
-        {/* Title */}
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white mb-3">
-          MiniLink
-            </h3>
-
-        {/* Description */}
-        <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg mb-5 leading-relaxed line-clamp-3 lg:line-clamp-none">
-         A modern URL shortener with secure authentication using NextAuth, allowing users to create short links and track click analytics. Logged-in users can monitor link performance with accurate click counting and manage their URLs efficiently.
-        </p>
-
-        {/* Tech Tags */}
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-8">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-1 sm:px-4 sm:py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-medium border border-gray-200 dark:border-gray-700"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex gap-2 sm:gap-4">
-          {/* GitHub */}
-          <a
-            href="https://github.com/SaadkamalShaikhdev/MiniLink"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-300 font-semibold text-sm sm:text-base"
-          >
-            <Github size={16} className="shrink-0" />
-            <span>Code</span>
-            <ArrowUpRight
-              size={14}
-              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
-            />
-          </a>
-
-          {/* Live Demo */}
-          <a
-            href="https://mini-link-five.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 transition-all duration-300 font-semibold shadow-lg text-sm sm:text-base"
-          >
-            <ExternalLink size={16} className="shrink-0" />
-            <span>Live Demo</span>
-            <ArrowUpRight
-              size={14}
-              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
-            />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div className='group relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700 hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 lg:h-[500px]'>
- <div className="group grid lg:grid-cols-2 h-full overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm bg-white dark:bg-gray-900">
-      {/* Image Side */}
-      <div className="relative overflow-hidden h-52 sm:h-64 lg:h-full">
-        <Image
-          src="/passopp.png"
-          alt="Passworn Manager Platform"
-          fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
-
-      {/* Content Side */}
-      <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-center">
-
-        {/* Title */}
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-gray-900 dark:text-white mb-3">
-          PassOp
-            </h3>
-
-        {/* Description */}
-        <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base lg:text-lg mb-5 leading-relaxed line-clamp-3 lg:line-clamp-none">
-        A lightweight password manager that securely stores user credentials in localStorage for quick and easy access. Features a clean interface to save, view, and manage passwords directly in the browser without relying on external databases.
-        </p>
-
-        {/* Tech Tags */}
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-8">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-1 sm:px-4 sm:py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl text-xs sm:text-sm font-medium border border-gray-200 dark:border-gray-700"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex gap-2 sm:gap-4">
-          {/* GitHub */}
-          <a
-            href="https://github.com/SaadkamalShaikhdev/PassOP"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-300 font-semibold text-sm sm:text-base"
-          >
-            <Github size={16} className="shrink-0" />
-            <span>Code</span>
-            <ArrowUpRight
-              size={14}
-              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
-            />
-          </a>
-
-          {/* Live Demo */}
-          <a
-            href="https://pass-op-three-wine.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/link flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:scale-105 transition-all duration-300 font-semibold shadow-lg text-sm sm:text-base"
-          >
-            <ExternalLink size={16} className="shrink-0" />
-            <span>Live Demo</span>
-            <ArrowUpRight
-              size={14}
-              className="shrink-0 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
-            />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-                </div></ScrollReveal>
-                <ScrollReveal delay={0.2}>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 md:mt-20">
-                  <div className='bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105'>
-                    <p className='text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500 mb-2'>
-                      10+
-                    </p>
-                    <p className='text-sm text-gray-600 dark:text-gray-400 font-medium'>Projects Completed</p>
-                  </div>
-                  <div className='bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105'>
-                    <p className='text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500 mb-2'>
-                      15+
-                    </p>
-                    <p className='text-sm text-gray-600 dark:text-gray-400 font-medium'>Technologies</p>
-                  </div>
-                  <div className='bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105'>
-                    <p className='text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500 mb-2'>
-                      100+
-                    </p>
-                    <p className='text-sm text-gray-600 dark:text-gray-400 font-medium'>Git Commits</p>
-                  </div>
-                  <div className='bg-white dark:bg-gray-900 p-8 rounded-2xl border border-gray-200 dark:border-gray-700 text-center hover:border-teal-500 dark:hover:border-teal-400 transition-all duration-300 hover:scale-105'>
-                    <p className='text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-amber-500 mb-2'>
-                      100%
-                    </p>
-                    <p className='text-sm text-gray-600 dark:text-gray-400 font-medium'>Client satisfaction</p>
-                  </div>
-                </div>
-                </ScrollReveal>
-               </div>
-                </div>
-        </section>
+        
         <section id="Contact" className='md:py-32 py-10 px-6 dark:bg-gray-900 transition-colors relative overflow-hidden'>
           <div className='absolute top-1/2 left-0 w-96 h-96 bg-teal-500/10 dark:bg-teal-500/5 rounded-full blur-3xl'></div>
           <div className="container mx-auto relative z-10">
