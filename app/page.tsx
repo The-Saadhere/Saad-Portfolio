@@ -429,7 +429,7 @@ export default function Home() {
             </ScrollReveal>
           </div>
         </section>
-
+{/* s */}
       </div>
     </main>
   );
