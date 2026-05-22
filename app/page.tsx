@@ -29,9 +29,7 @@ export default function Home() {
 
   return (
     <main>
-      {/* ── Global texture layer injected once ── */}
       <style>{`
-        /* Noise/grain texture overlay */
         body::before {
           content: '';
           position: fixed;
@@ -44,7 +42,6 @@ export default function Home() {
           background-size: 128px 128px;
         }
 
-        /* Light mode: warm off-white gradient mesh */
         :root {
           --bg-primary: #fafaf8;
           --bg-secondary: #f4f3ef;
@@ -53,7 +50,6 @@ export default function Home() {
                       radial-gradient(ellipse at 60% 40%, #e0f2ee 0%, transparent 40%);
         }
 
-        /* Dark mode: true neutral-dark, no blue tint */
         .dark {
           --bg-primary: #141412;
           --bg-secondary: #1c1b18;
@@ -72,7 +68,6 @@ export default function Home() {
           background-image: var(--bg-mesh);
         }
 
-        /* Consistent card glass in dark mode */
         .dark .card-surface {
           background: linear-gradient(135deg, #1e1d1a 0%, #161614 100%);
         }
@@ -85,14 +80,14 @@ export default function Home() {
 
         {/* ─────────────── HERO ─────────────── */}
         <section id='home' className='section-bg min-h-screen flex items-center pt-20 px-6 relative overflow-hidden'>
-          {/* decorative blobs */}
-          <div className="absolute top-1/4 -right-32 w-[500px] h-[500px] rounded-full bg-teal-400/10 dark:bg-teal-500/5 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 -left-24 w-96 h-96 rounded-full bg-amber-400/10 dark:bg-amber-500/5 blur-3xl pointer-events-none" />
+          {/* Blobs */}
+          <div className="absolute top-1/4 -right-32 w-[600px] h-[600px] rounded-full bg-teal-400/20 dark:bg-teal-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 -left-24 w-[500px] h-[500px] rounded-full bg-amber-400/20 dark:bg-amber-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full bg-teal-300/10 dark:bg-teal-600/5 blur-3xl pointer-events-none" />
 
           <div className='container mx-auto max-w-6xl relative z-10'>
             <ScrollReveal>
               <div className='grid lg:grid-cols-2 gap-12 items-center'>
-                {/* Text side */}
                 <div className='space-y-6'>
                   <div className='inline-flex items-center gap-2 px-4 py-2 bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-800 rounded-full'>
                     <Sparkles className='w-4 h-4 text-teal-700 dark:text-teal-400' />
@@ -117,7 +112,7 @@ export default function Home() {
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </button>
                     <button className="px-8 py-4 border-2 border-gray-300 dark:border-zinc-600 text-gray-700 dark:text-gray-300 rounded-2xl hover:border-teal-500 hover:text-teal-600 dark:hover:border-teal-400 dark:hover:text-teal-400 transition-all duration-300 font-semibold">
-                      Get In Touch
+                      <a href='#Contact'>Get In Touch</a>
                     </button>
                   </div>
 
@@ -128,20 +123,20 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Image side — circular photo */}
                 <div className='relative flex justify-center mt-8 lg:mt-0 pb-16 lg:pb-10'>
-                  {/* Decorative ring */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-[300px] h-[300px] lg:w-[380px] lg:h-[380px] rounded-full border-2 border-dashed border-teal-300/40 dark:border-teal-600/30 animate-spin" style={{ animationDuration: '20s' }} />
                   </div>
+                  {/* Extra glow ring behind photo */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-[280px] h-[280px] lg:w-[360px] lg:h-[360px] rounded-full bg-teal-400/20 dark:bg-teal-500/15 blur-2xl" />
+                  </div>
 
-                  {/* Circular photo */}
                   <div className='relative w-[260px] h-[260px] lg:w-[340px] lg:h-[340px] rounded-full overflow-hidden border-4 border-white dark:border-zinc-800 shadow-2xl ring-4 ring-teal-200/60 dark:ring-teal-800/40'>
                     <Image src="/saad2.jpg" alt="Saad Kamal" fill className='object-cover' />
                   </div>
 
-                  {/* Experience badge */}
-                  <div className='absolute bottom-0 left-1/2 -translate-x-1/2 lg:left-4 lg:translate-x-0 lg:bottom-2 bg-white dark:bg-zinc-800 px-6 py-4 rounded-2xl shadow-xl border border-gray-100 dark:border-zinc-700'>
+                  <div className='absolute bottom-0 left-1/2 -translate-x-1/2 lg:left-4 lg:translate-x-0 lg:bottom-2 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-md px-6 py-4 rounded-2xl shadow-xl border border-gray-100 dark:border-zinc-700'>
                     <p className='text-3xl lg:text-4xl font-black text-teal-600 dark:text-teal-400'>1+</p>
                     <p className='text-sm text-gray-600 dark:text-gray-400'>Years Experience</p>
                   </div>
@@ -153,7 +148,10 @@ export default function Home() {
 
         {/* ─────────────── ABOUT ─────────────── */}
         <section className='section-bg-alt md:py-32 py-10 px-6 transition-colors relative overflow-hidden' id='About'>
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-amber-400/8 dark:bg-amber-500/4 blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-amber-400/15 dark:bg-amber-500/8 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-teal-400/10 dark:bg-teal-500/6 blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 right-1/4 w-[300px] h-[300px] rounded-full bg-teal-300/8 dark:bg-teal-600/4 blur-2xl pointer-events-none" />
+
           <div className='container mx-auto max-w-6xl relative z-10'>
             <ScrollReveal>
               <div className='mb-20'>
@@ -204,8 +202,12 @@ export default function Home() {
         </section>
 
         {/* ─────────────── PROJECTS ─────────────── */}
-        <section id="Projects" className="section-bg md:py-32 py-10 px-6 transition-colors">
-          <div className='container mx-auto max-w-6xl'>
+        <section id="Projects" className="section-bg md:py-32 py-10 px-6 transition-colors relative overflow-hidden">
+          {/* Blobs */}
+          <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full bg-teal-400/10 dark:bg-teal-500/6 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-amber-400/12 dark:bg-amber-500/6 blur-3xl pointer-events-none" />
+
+          <div className='container mx-auto max-w-6xl relative z-10'>
             <ScrollReveal delay={0.3}>
               <div className='md:mb-20 mb-10'>
                 <h2 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white md:mb-6 mb-4">
@@ -293,7 +295,10 @@ export default function Home() {
 
         {/* ─────────────── SKILLS ─────────────── */}
         <section className='section-bg-alt md:py-32 py-10 px-6 transition-colors relative overflow-hidden' id='Skill'>
-          <div className="absolute bottom-0 right-0 w-[350px] h-[350px] rounded-full bg-teal-400/8 dark:bg-teal-500/5 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[450px] h-[450px] rounded-full bg-teal-400/15 dark:bg-teal-500/8 blur-3xl pointer-events-none" />
+          <div className="absolute top-0 left-0 w-[350px] h-[350px] rounded-full bg-amber-400/12 dark:bg-amber-500/6 blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-teal-300/8 dark:bg-teal-600/4 blur-3xl pointer-events-none" />
+
           <div className='container mx-auto max-w-6xl relative z-10'>
             <ScrollReveal>
               <div className='mb-20'>
@@ -345,7 +350,10 @@ export default function Home() {
 
         {/* ─────────────── CONTACT ─────────────── */}
         <section id="Contact" className='section-bg md:py-32 py-10 px-6 transition-colors relative overflow-hidden'>
-          <div className='absolute top-1/2 left-0 w-96 h-96 bg-teal-500/10 dark:bg-teal-500/5 rounded-full blur-3xl pointer-events-none'></div>
+          <div className='absolute top-0 right-0 w-[500px] h-[500px] bg-teal-400/12 dark:bg-teal-500/7 rounded-full blur-3xl pointer-events-none' />
+          <div className='absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-400/12 dark:bg-amber-500/6 rounded-full blur-3xl pointer-events-none' />
+          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-teal-300/8 dark:bg-teal-600/4 rounded-full blur-3xl pointer-events-none' />
+
           <div className="container mx-auto max-w-6xl relative z-10">
             <ScrollReveal delay={0.3}>
               <div className="md:mb-20 mb-10 text-center">
@@ -357,7 +365,6 @@ export default function Home() {
               </div>
 
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
-                {/* Contact info */}
                 <div className="lg:col-span-2 space-y-6">
                   <div className="card-surface p-6 md:p-8 rounded-3xl border border-gray-200 dark:border-zinc-700">
                     <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
@@ -389,7 +396,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Form */}
                 <div className="lg:col-span-3">
                   <div className="card-surface p-6 md:p-10 rounded-3xl border border-gray-200 dark:border-zinc-700">
                     <div className="space-y-6">
