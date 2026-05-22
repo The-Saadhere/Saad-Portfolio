@@ -137,7 +137,7 @@ export default function Home() {
 
                   {/* Circular photo */}
                   <div className='relative w-[260px] h-[260px] lg:w-[340px] lg:h-[340px] rounded-full overflow-hidden border-4 border-white dark:border-zinc-800 shadow-2xl ring-4 ring-teal-200/60 dark:ring-teal-800/40'>
-                    <Image src="/saad.jpeg" alt="Saad Kamal" fill className='object-cover' />
+                    <Image src="/saad2.jpg" alt="Saad Kamal" fill className='object-cover' />
                   </div>
 
                   {/* Experience badge */}
