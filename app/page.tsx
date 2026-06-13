@@ -124,7 +124,7 @@ const TOOLS = ['Git','Docker','Vercel','Postman','ESLint','Express','Figma']
 const STATS = [
   { num: '10+', label: 'Projects completed' },
   { num: '15+', label: 'Technologies' },
-  { num: '100+', label: 'Git commits' },
+  { num: '300+', label: 'Git commits' },
   { num: '100%', label: 'Client satisfaction' },
 ]
 
@@ -257,7 +257,7 @@ export default function Home() {
           </div>
           <div className="flex gap-3 mt-11">
             {[
-              { href: 'https://github.com/SaadkamalShaikhdev', icon: <GithubIcon />, label: 'GitHub' },
+              { href: 'https://github.com/The-Saadhere', icon: <GithubIcon />, label: 'GitHub' },
               { href: 'https://www.linkedin.com/in/saadkamal-shaikh-887449398/', icon: <LinkedinIcon />, label: 'LinkedIn' },
               { href: 'mailto:saadkamalshaikhdev@gmail.com', icon: <MailIcon />, label: 'Email' },
             ].map(({ href, icon, label }) => (
