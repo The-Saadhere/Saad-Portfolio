@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { ArrowUpRight, Package, Rocket, ShieldCheck, ShoppingBag, PanelsTopLeft, Link2, Zap, Mail, BriefcaseBusiness, FolderGit2 } from 'lucide-react'
 
 type Status = 'idle' | 'sending' | 'ok' | 'err'
 
@@ -36,11 +37,7 @@ const CloseIcon = () => (
     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 )
-const ArrowIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <path d="M7 17L17 7M17 7H7M17 7v10" />
-  </svg>
-)
+const ArrowIcon = () => <ArrowUpRight size={13} strokeWidth={2.5} />
 const DownloadIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
@@ -129,25 +126,25 @@ const PROJECTS = [
 
 const SERVICES = [
   {
-    icon: '🛒',
+    icon: <ShoppingBag size={22} strokeWidth={2} />,
     title: 'E-Commerce Stores',
     desc: 'Full online stores with product management, cart, secure checkout, order tracking, and an admin dashboard to run everything.',
     items: ['Product & inventory management','User auth + order history','Admin dashboard & analytics'],
   },
   {
-    icon: '⚙️',
+    icon: <PanelsTopLeft size={22} strokeWidth={2} />,
     title: 'Web Apps & Dashboards',
     desc: 'Custom web applications with real data, role-based access, and clean UIs — built to scale from day one.',
     items: ['Role-based auth & permissions','REST API design & integration','Responsive, accessible UI'],
   },
   {
-    icon: '🔗',
+    icon: <Link2 size={22} strokeWidth={2} />,
     title: 'API & Backend Dev',
     desc: 'Fast, well-structured backends with clean endpoints, database design, validation, and email integrations.',
     items: ['MongoDB schema design','Zod validation & error handling','Transactional email via Resend'],
   },
   {
-    icon: '🚀',
+    icon: <Zap size={22} strokeWidth={2} />,
     title: 'Performance & Deployment',
     desc: 'Production-ready deployments on Vercel with optimised load times, image handling, and zero-downtime launches.',
     items: ['Next.js App Router & SSR','Vercel + CI/CD setup','Core Web Vitals optimisation'],
@@ -474,12 +471,12 @@ export default function Home() {
 
             <div className="flex flex-col gap-4">
               {[
-                { icon: '🔐', title: 'Auth & Security First', desc: 'Role-based access control, protected routes, secure sessions — not just a login page.' },
-                { icon: '📦', title: 'Full Ownership', desc: 'DB schema, API design, frontend state, CI/CD — I own the full stack so nothing falls through.' },
-                { icon: '🚢', title: 'Ships on Time', desc: 'I build iteratively and deploy early. You always know where things stand.' },
+                { icon: <ShieldCheck size={18} strokeWidth={2.2} />, title: 'Auth & Security First', desc: 'Role-based access control, protected routes, secure sessions — not just a login page.' },
+                { icon: <Package size={18} strokeWidth={2.2} />, title: 'Full Ownership', desc: 'DB schema, API design, frontend state, CI/CD — I own the full stack so nothing falls through.' },
+                { icon: <Rocket size={18} strokeWidth={2.2} />, title: 'Ships on Time', desc: 'I build iteratively and deploy early. You always know where things stand.' },
               ].map(({ icon, title, desc }, i) => (
                 <div key={title} className={`reveal d${i+1} hoverable group rounded-2xl p-6 border border-white/[0.07] bg-white/[0.03] transition-all hover:border-[#00e6c8]/30 hover:bg-[#00e6c8]/[0.04] hover:translate-x-1.5`}>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 bg-white/[0.06]">{icon}</div>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 bg-white/[0.06] text-white">{icon}</div>
                   <h3 className="font-playfair font-bold text-[17px] text-white mb-1.5">{title}</h3>
                   <p className="font-inter text-[13px] leading-relaxed text-white/40">{desc}</p>
                 </div>
@@ -684,13 +681,15 @@ export default function Home() {
             {/* 3-way CTA cards */}
             <div className="reveal grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
               {[
-                { icon: '✉', label: 'Send an email', sub: 'saadkamaldev@gmail.com', href: 'mailto:saadkamaldev@gmail.com', cta: 'Email now' },
-                { icon: '💼', label: 'Connect on LinkedIn', sub: 'For remote job opportunities', href: 'https://www.linkedin.com/in/the-saadhere', cta: 'Open LinkedIn' },
-                { icon: '📂', label: 'Browse my code', sub: 'github.com/The-Saadhere', href: 'https://github.com/The-Saadhere', cta: 'View GitHub' },
+                { icon: <Mail size={18} strokeWidth={2} />, label: 'Send an email', sub: 'saadkamaldev@gmail.com', href: 'mailto:saadkamaldev@gmail.com', cta: 'Email now' },
+                { icon: <BriefcaseBusiness size={18} strokeWidth={2} />, label: 'Connect on LinkedIn', sub: 'For remote job opportunities', href: 'https://www.linkedin.com/in/the-saadhere', cta: 'Open LinkedIn' },
+                { icon: <FolderGit2 size={18} strokeWidth={2} />, label: 'Browse my code', sub: 'github.com/The-Saadhere', href: 'https://github.com/The-Saadhere', cta: 'View GitHub' },
               ].map(({ icon, label, sub, href, cta }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                   className="hoverable group flex flex-col gap-4 p-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] no-underline transition-all hover:border-[#00e6c8]/30 hover:bg-[#00e6c8]/[0.04] hover:-translate-y-1">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-white/[0.06]">{icon}</div>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-white/[0.06] text-white">
+                    {icon}
+                  </div>
                   <div>
                     <p className="font-playfair font-bold text-[16px] text-white mb-0.5">{label}</p>
                     <p className="font-ibm text-[10.5px] text-white/25 truncate">{sub}</p>
