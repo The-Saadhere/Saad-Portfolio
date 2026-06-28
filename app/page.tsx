@@ -3,10 +3,9 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
-/* ─────────────────────────────── Types ── */
 type Status = 'idle' | 'sending' | 'ok' | 'err'
 
-/* ─────────────────────────────── Icons ── */
+/* ── Icons ── */
 const GithubIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.82-.26.82-.58v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.55-1.38-1.34-1.75-1.34-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 5.8c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z" />
@@ -23,7 +22,7 @@ const MailIcon = () => (
   </svg>
 )
 const SendIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
   </svg>
 )
@@ -37,127 +36,154 @@ const CloseIcon = () => (
     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 )
+const ArrowIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <path d="M7 17L17 7M17 7H7M17 7v10" />
+  </svg>
+)
+const DownloadIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+)
+const CheckIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+)
 
-/* ─────────────────────────────── Cursor ── */
+/* ── Cursor ── */
 function Cursor() {
-  const cursorRef = useRef<HTMLDivElement>(null)
+  const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const pos = useRef({ mx: 0, my: 0, rx: 0, ry: 0 })
-
   useEffect(() => {
-    const onMove = (e: MouseEvent) => { pos.current.mx = e.clientX; pos.current.my = e.clientY }
-    document.addEventListener('mousemove', onMove)
+    const mv = (e: MouseEvent) => { pos.current.mx = e.clientX; pos.current.my = e.clientY }
+    document.addEventListener('mousemove', mv)
     let raf: number
     const tick = () => {
-      const { mx, my } = pos.current
-      pos.current.rx += (mx - pos.current.rx - 18) * 0.15
-      pos.current.ry += (my - pos.current.ry - 18) * 0.15
-      if (cursorRef.current) { cursorRef.current.style.left = mx - 6 + 'px'; cursorRef.current.style.top = my - 6 + 'px' }
+      pos.current.rx += (pos.current.mx - pos.current.rx - 18) * 0.12
+      pos.current.ry += (pos.current.my - pos.current.ry - 18) * 0.12
+      if (dotRef.current) { dotRef.current.style.left = pos.current.mx - 5 + 'px'; dotRef.current.style.top = pos.current.my - 5 + 'px' }
       if (ringRef.current) { ringRef.current.style.left = pos.current.rx + 'px'; ringRef.current.style.top = pos.current.ry + 'px' }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    const expand = () => { cursorRef.current?.classList.add('scale-[2.5]', '!bg-[rgba(92,90,255,0.6)]'); ringRef.current?.classList.add('!opacity-0') }
-    const shrink = () => { cursorRef.current?.classList.remove('scale-[2.5]', '!bg-[rgba(92,90,255,0.6)]'); ringRef.current?.classList.remove('!opacity-0') }
-    const els = document.querySelectorAll('a,button,.skill-tile,.stat-block,.about-card')
-    els.forEach(el => { el.addEventListener('mouseenter', expand); el.addEventListener('mouseleave', shrink) })
-    return () => { document.removeEventListener('mousemove', onMove); cancelAnimationFrame(raf) }
+    const on = () => { dotRef.current?.classList.add('scale-[3]', '!bg-[rgba(0,230,200,0.5)]'); ringRef.current?.classList.add('!opacity-0') }
+    const off = () => { dotRef.current?.classList.remove('scale-[3]', '!bg-[rgba(0,230,200,0.5)]'); ringRef.current?.classList.remove('!opacity-0') }
+    document.querySelectorAll('a,button,.hoverable').forEach(el => { el.addEventListener('mouseenter', on); el.addEventListener('mouseleave', off) })
+    return () => { document.removeEventListener('mousemove', mv); cancelAnimationFrame(raf) }
   }, [])
-
   return (
     <>
-      <div ref={cursorRef} className="cursor fixed w-3 h-3 bg-[#5c5aff] rounded-full pointer-events-none z-[9999] transition-transform duration-150 hidden md:block" />
-      <div ref={ringRef} className="fixed w-9 h-9 border border-[#5c5aff] rounded-full pointer-events-none z-[9998] opacity-50 transition-opacity duration-200 hidden md:block" />
+      <div ref={dotRef} className="fixed w-2.5 h-2.5 bg-[#00e6c8] rounded-full pointer-events-none z-[9999] transition-transform duration-100 hidden md:block" />
+      <div ref={ringRef} className="fixed w-8 h-8 border border-[#00e6c8]/40 rounded-full pointer-events-none z-[9998] hidden md:block transition-opacity duration-150" />
     </>
   )
 }
 
-/* ─────────────────────────────── Reveal hook ── */
+/* ── Reveal ── */
 function useReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>('.reveal')
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target) } })
-    }, { threshold: 0.1 })
-    els.forEach(el => io.observe(el))
+    }, { threshold: 0.08 })
+    document.querySelectorAll<HTMLElement>('.reveal').forEach(el => io.observe(el))
     return () => io.disconnect()
   }, [])
 }
 
-/* ─────────────────────────────── Data ── */
-const MARQUEE_ITEMS = ['Next.js','React','TypeScript','MongoDB','Node.js','Tailwind CSS','REST APIs','Vercel','Docker','Full Stack Dev']
+/* ── Data ── */
+const MARQUEE = ['Next.js','TypeScript','React','MongoDB','Node.js','Tailwind CSS','REST APIs','NextAuth','Zustand','Zod','Vercel','Express']
 
 const PROJECTS = [
   {
-    img: '/dp.png', alt: 'Fashion Stylized', title: 'Fashion Stylized', featured: true,
-    desc: 'A full-featured e-commerce platform with product management, shopping cart, user authentication, and secure checkout with real-time inventory updates.',
-    tags: ['Next.js','TypeScript','Resend','MongoDB','Zustand'],
-    live: 'https://www.fashionstylized.store/', github: 'https://github.com/SaadkamalShaikhdev/fashionstylized',
+    img: '/dp.png', title: 'Fashion Stylized', year: '2024', type: 'E-Commerce Platform',
+    desc: 'Full e-commerce platform with role-based auth (NextAuth), protected admin dashboard for product & order management, real-time inventory sync, transactional email via Resend, and end-to-end Zod validation.',
+    highlights: [
+      'Role-based access — only admins can modify products and orders',
+      'Real-time inventory updates on every purchase',
+      'Full admin CRUD on products, orders, and users',
+    ],
+    tags: ['Next.js','TypeScript','MongoDB','NextAuth','Zustand','Resend','Zod'],
+    live: 'https://www.fashionstylized.store/',
+    github: 'https://github.com/The-Saadhere/fashionstylized',
   },
   {
-    img: '/urlshortener.png', alt: 'MiniLink', title: 'MiniLink',
-    desc: 'URL shortener with NextAuth, click analytics, and link management dashboard.',
+    img: '/urlshortener.png', title: 'MiniLink', year: '2024', type: 'SaaS Tool',
+    desc: 'URL shortener with authenticated link management, per-link click analytics, and a dashboard to track all your short links in one place.',
+    highlights: [],
     tags: ['Next.js','MongoDB','NextAuth'],
-    live: 'https://mini-link-five.vercel.app/', github: 'https://github.com/SaadkamalShaikhdev/MiniLink',
+    live: 'https://mini-link-five.vercel.app/',
+    github: 'https://github.com/The-Saadhere/MiniLink',
   },
   {
-    img: '/passopp.png', alt: 'PassOp', title: 'PassOp',
-    desc: "Lightweight password manager with localStorage — save, view, and manage credentials right in the browser.",
+    img: '/passopp.png', title: 'PassOp', year: '2024', type: 'Browser Tool',
+    desc: 'Lightweight password manager that saves, views, and manages credentials in the browser — no backend, no signup, instant access.',
+    highlights: [],
     tags: ['React.js','JavaScript','LocalStorage'],
-    live: 'https://pass-op-three-wine.vercel.app/', github: 'https://github.com/SaadkamalShaikhdev/PassOP',
+    live: 'https://pass-op-three-wine.vercel.app/',
+    github: 'https://github.com/The-Saadhere/PassOP',
+  },
+]
+
+const SERVICES = [
+  {
+    icon: '🛒',
+    title: 'E-Commerce Stores',
+    desc: 'Full online stores with product management, cart, secure checkout, order tracking, and an admin dashboard to run everything.',
+    items: ['Product & inventory management','User auth + order history','Admin dashboard & analytics'],
+  },
+  {
+    icon: '⚙️',
+    title: 'Web Apps & Dashboards',
+    desc: 'Custom web applications with real data, role-based access, and clean UIs — built to scale from day one.',
+    items: ['Role-based auth & permissions','REST API design & integration','Responsive, accessible UI'],
+  },
+  {
+    icon: '🔗',
+    title: 'API & Backend Dev',
+    desc: 'Fast, well-structured backends with clean endpoints, database design, validation, and email integrations.',
+    items: ['MongoDB schema design','Zod validation & error handling','Transactional email via Resend'],
+  },
+  {
+    icon: '🚀',
+    title: 'Performance & Deployment',
+    desc: 'Production-ready deployments on Vercel with optimised load times, image handling, and zero-downtime launches.',
+    items: ['Next.js App Router & SSR','Vercel + CI/CD setup','Core Web Vitals optimisation'],
   },
 ]
 
 const SKILLS = [
-  { name: 'Next.js', cat: 'Framework', featured: true },
-  { name: 'React',      cat: 'Library' },
+  { name: 'Next.js', cat: 'Framework', wide: true },
   { name: 'TypeScript', cat: 'Language' },
-  { name: 'Node.js',    cat: 'Runtime' },
-  { name: 'MongoDB',    cat: 'Database' },
-  { name: 'Tailwind',   cat: 'Styling' },
-  { name: 'REST APIs',  cat: 'Architecture' },
-  { name: 'NextAuth',   cat: 'Auth' },
+  { name: 'React', cat: 'Library' },
+  { name: 'Node.js', cat: 'Runtime' },
+  { name: 'MongoDB', cat: 'Database' },
+  { name: 'Tailwind', cat: 'Styling' },
+  { name: 'NextAuth', cat: 'Auth' },
+  { name: 'REST APIs', cat: 'Architecture' },
 ]
 
-const TOOLS = ['Git','Docker','Vercel','Postman','ESLint','Express','Figma']
+const TOOLS = ['Git','Vercel','Docker','Postman','ESLint','Express','Figma','Zod','Zustand']
 
-const STATS = [
-  { num: '10+', label: 'Projects completed' },
-  { num: '15+', label: 'Technologies' },
-  { num: '300+', label: 'Git commits' },
-  { num: '100%', label: 'Client satisfaction' },
-]
-
-const ABOUT_CARDS = [
-  { icon: '⚡', title: 'Clean Code', desc: 'Clean, maintainable code that follows industry best practices and stands the test of time.' },
-  { icon: '📱', title: 'Responsive Design', desc: 'Pixel-perfect interfaces that work seamlessly across every device and screen size.' },
-  { icon: '🚀', title: 'Fast Performance', desc: 'Optimized web applications with fast load times and silky-smooth user experiences.' },
-]
-
-/* ─────────────────────────────── Small reusables ── */
+/* ── Reusables ── */
 const Tag = ({ label }: { label: string }) => (
-  <span className="px-3 py-1 font-mono text-[11px] rounded-full border border-[rgba(100,100,150,0.15)] bg-[#eeedf8] text-[#2e2e40] tracking-[0.04em]">
+  <span className="px-3 py-[5px] font-ibm text-[10.5px] rounded-full border border-zinc-200 bg-zinc-50 text-zinc-500 tracking-[0.04em]">
     {label}
   </span>
 )
 
-const SectionLabel = ({ children, light }: { children: string; light?: boolean }) => (
-  <div className={`s-label inline-flex items-center font-mono text-[11px] tracking-[0.14em] uppercase mb-5 ${light ? 'text-[#0cd68a]' : 'text-[#5c5aff]'}`}>
+const Eyebrow = ({ children, light }: { children: string; light?: boolean }) => (
+  <p className={`font-ibm text-[10.5px] tracking-[0.2em] uppercase mb-4 ${light ? 'text-[#00e6c8]' : 'text-zinc-400'}`}>
     {children}
-  </div>
+  </p>
 )
 
-const H2 = ({ children, light }: { children: React.ReactNode; light?: boolean }) => (
-  <h2 className={`font-[Syne] font-black tracking-tighter leading-none mb-4 text-[clamp(36px,5vw,64px)] ${light ? 'text-white' : 'text-[#0a0a0f]'}`}>
-    {children}
-  </h2>
-)
-
-/* ─────────────────────────────── PAGE ── */
+/* ══════════════ PAGE ══════════════ */
 export default function Home() {
   useReveal()
 
-  /* contact form */
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(f => ({ ...f, [k]: e.target.value }))
@@ -175,359 +201,572 @@ export default function Home() {
   }
 
   const btnLabel = status === 'sending' ? 'Sending…' : status === 'ok' ? '✓ Sent!' : status === 'err' ? 'Failed — try again' : 'Send Message'
-  const btnBg = status === 'ok' ? 'bg-[#0cd68a]' : status === 'err' ? 'bg-[#e24b4a]' : 'bg-[#5c5aff] hover:bg-[#4442e8]'
+  const btnBg = status === 'ok' ? 'bg-emerald-500 text-white' : status === 'err' ? 'bg-red-500 text-white' : 'bg-[#00e6c8] text-zinc-950 hover:brightness-110'
 
-  const inputCls = "w-full px-[18px] py-3.5 rounded-[14px] text-sm outline-none transition-all duration-200 bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:border-[#5c5aff] focus:bg-[rgba(92,90,255,0.05)]"
+  const inputCls = "w-full px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all bg-white/[0.04] border border-white/[0.08] text-white placeholder:text-white/20 focus:border-[#00e6c8]/50 focus:shadow-[0_0_0_3px_rgba(0,230,200,0.1)]"
 
-  /* ── render ── */
   return (
-    <div className="font-[DM_Sans] bg-[#f8f7ff] text-[#0a0a0f] overflow-x-hidden md:cursor-none">
-      <Cursor />
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #fff; }
 
-      {/* ══════════════════ NAV ══════════════════ */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-5 sm:px-8 lg:px-12 py-4 sm:py-5 backdrop-blur-xl border-b border-[rgba(100,100,150,0.15)] bg-[rgba(248,247,255,0.7)]">
-        <a href="#hero" className="font-[Syne] font-black text-lg tracking-tighter text-[#0a0a0f] no-underline">
-          saad<span className="text-[#5c5aff]">.</span>dev
-        </a>
+        /* Font classes */
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-inter    { font-family: 'Inter', sans-serif; }
+        .font-ibm      { font-family: 'IBM Plex Mono', monospace; }
 
-        {/* desktop links */}
-        <ul className="hidden md:flex gap-9 list-none">
-          {['about','projects','skills'].map(id => (
-            <li key={id}>
-              <a href={`#${id}`} className="text-[13px] font-medium uppercase tracking-widest text-[#6b6b85] no-underline transition-colors hover:text-[#0a0a0f]">{id}</a>
-            </li>
-          ))}
-          <li>
-            <a href="#contact" className="text-[13px] font-medium px-5 py-2.5 rounded-full bg-[#0a0a0f] text-[#f8f7ff] no-underline transition-all hover:bg-[#5c5aff] hover:scale-[1.04]">
-              Get in touch
+        /* Subtle page grid */
+        .page-grid {
+          background-image:
+            linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+          background-size: 56px 56px;
+        }
+
+        /* Marquee */
+        @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+        .mq { animation: marquee 28s linear infinite; }
+        .mq:hover { animation-play-state: paused; }
+
+        /* Reveal */
+        .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.65s ease,transform 0.65s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal.d1 { transition-delay:.1s }
+        .reveal.d2 { transition-delay:.2s }
+        .reveal.d3 { transition-delay:.3s }
+
+        /* Photo — chamfered corner editorial feel */
+        .photo-frame {
+          clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+          overflow: hidden;
+        }
+
+        /* Thin rule accent */
+        .rule { border-top: 1px solid rgba(0,0,0,0.08); }
+        .rule-light { border-top: 1px solid rgba(255,255,255,0.07); }
+
+        /* Float */
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        .fa { animation: float 4s ease-in-out infinite; }
+        .fb { animation: float 4s ease-in-out 1.6s infinite; }
+
+        /* Project card */
+        .proj-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .proj-card:hover { transform: translateY(-5px); box-shadow: 0 28px 56px rgba(0,0,0,0.08); }
+
+        /* Service card hover */
+        .svc-card { transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
+        .svc-card:hover { border-color: #00e6c8 !important; transform: translateY(-3px); }
+
+        /* Skill tile */
+        .skill-tile { transition: transform 0.18s ease, border-color 0.18s ease; }
+        .skill-tile:hover { transform: translateY(-3px); border-color: rgba(0,230,200,0.45) !important; }
+
+        /* Accent text + line */
+        .accent { color: #00e6c8; }
+        .border-accent { border-color: #00e6c8; }
+      `}</style>
+
+      <div className="font-inter bg-white text-zinc-950 overflow-x-hidden md:cursor-none">
+        <Cursor />
+
+        {/* ══ NAV ══ */}
+        <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-5 sm:px-8 lg:px-14 py-[18px] backdrop-blur-2xl border-b border-zinc-100 bg-white/88">
+          <a href="#hero" className="font-playfair font-bold text-[20px] tracking-tight text-zinc-950 no-underline italic">
+            SK<span className="accent not-italic">.</span>
+          </a>
+          <ul className="hidden md:flex items-center gap-9 list-none m-0 p-0">
+            {['about','projects','services','skills'].map(id => (
+              <li key={id}>
+                <a href={`#${id}`} className="font-ibm text-[11px] uppercase tracking-[0.14em] text-zinc-400 no-underline transition-colors hover:text-zinc-950">{id}</a>
+              </li>
+            ))}
+          </ul>
+          <div className="hidden md:flex items-center gap-2">
+            <a href="mailto:saadkamaldev@gmail.com"
+              className="hoverable font-inter text-[13px] font-medium px-5 py-2.5 rounded-full border border-zinc-200 text-zinc-700 no-underline transition-all hover:border-zinc-950 hover:text-zinc-950">
+              Email me
             </a>
-          </li>
-        </ul>
-
-        {/* mobile hamburger */}
-        <button
-          onClick={() => setMenuOpen(o => !o)}
-          aria-label="Toggle menu"
-          className="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-[rgba(100,100,150,0.15)] text-[#0a0a0f] bg-white"
-        >
-          {menuOpen ? <CloseIcon /> : <MenuIcon />}
-        </button>
-      </nav>
-
-      {/* mobile menu panel */}
-      {menuOpen && (
-        <div className="fixed top-[64px] left-0 right-0 z-[99] md:hidden bg-[#f8f7ff] border-b border-[rgba(100,100,150,0.15)] px-5 py-6 flex flex-col gap-4">
-          {['about','projects','skills','contact'].map(id => (
-            <a
-              key={id}
-              href={`#${id}`}
-              onClick={() => setMenuOpen(false)}
-              className="text-sm font-medium uppercase tracking-widest text-[#0a0a0f] no-underline py-2 border-b border-[rgba(100,100,150,0.08)]"
-            >
-              {id}
+            <a href="#contact"
+              className="hoverable font-inter text-[13px] font-semibold px-5 py-2.5 rounded-full bg-zinc-950 text-white no-underline transition-all hover:bg-[#00e6c8] hover:text-zinc-950">
+              Hire me
             </a>
-          ))}
-        </div>
-      )}
-
-      {/* ══════════════════ HERO ══════════════════ */}
-      <section id="hero" className="min-h-screen grid grid-cols-1 md:grid-cols-2 pt-24 md:pt-20 relative overflow-hidden bg-[#f8f7ff]">
-        <div className="hero-grid absolute inset-0" />
-
-        {/* left */}
-        <div className="reveal flex flex-col justify-center px-5 sm:px-8 lg:px-12 py-12 md:py-20 relative z-10">
-          <div className="eyebrow inline-flex items-center font-mono text-xs tracking-widest uppercase mb-7 text-[#5c5aff]">
-            Available for opportunities
           </div>
-          <h1 className="font-[Syne] font-black leading-[0.95] tracking-tighter mb-6 text-[#0a0a0f]"
-              style={{ fontSize: 'clamp(44px,11vw,96px)' }}>
-            Saad<br />Kamal<br /><span className="grad">Builds.</span>
-          </h1>
-          <p className="text-[15px] sm:text-[17px] leading-relaxed max-w-[440px] mb-11 text-[#6b6b85]">
-            Full Stack Developer crafting modern, scalable web experiences.
-            Open to freelance projects and remote internship opportunities.
-          </p>
-          <div className="flex gap-4 flex-wrap">
-            <a href="#projects" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium no-underline bg-[#0a0a0f] text-[#f8f7ff] transition-all hover:bg-[#5c5aff] hover:-translate-y-0.5">
-              View my work →
-            </a>
-            <a href="#contact" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium no-underline border border-[rgba(100,100,150,0.15)] text-[#0a0a0f] transition-all hover:border-[#5c5aff] hover:text-[#5c5aff] hover:-translate-y-0.5">
-              Let&apos;s talk
-            </a>
-          </div>
-          <div className="flex gap-3 mt-11">
-            {[
-              { href: 'https://github.com/The-Saadhere', icon: <GithubIcon />, label: 'GitHub' },
-              { href: 'https://www.linkedin.com/in/saadkamal-shaikh-887449398/', icon: <LinkedinIcon />, label: 'LinkedIn' },
-              { href: 'mailto:saadkamalshaikhdev@gmail.com', icon: <MailIcon />, label: 'Email' },
-            ].map(({ href, icon, label }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
-                 className="w-11 h-11 flex items-center justify-center rounded-xl border border-[rgba(100,100,150,0.15)] bg-white text-[#6b6b85] no-underline transition-all hover:border-[#5c5aff] hover:text-[#5c5aff] hover:-translate-y-1">
-                {icon}
+          <button onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu"
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 text-zinc-950 bg-white">
+            {menuOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </nav>
+
+        {menuOpen && (
+          <div className="fixed top-[65px] left-0 right-0 z-[99] md:hidden bg-white border-b border-zinc-100 px-5 py-5 flex flex-col gap-1">
+            {['about','projects','services','skills','contact'].map(id => (
+              <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}
+                className="font-ibm text-[11px] uppercase tracking-[0.14em] text-zinc-800 no-underline py-3 border-b border-zinc-50 last:border-0">
+                {id}
               </a>
             ))}
+            <a href="mailto:saadkamaldev@gmail.com"
+              className="mt-3 text-center font-semibold text-[13px] py-3.5 rounded-full bg-zinc-950 text-white no-underline">
+              Email me directly
+            </a>
           </div>
-        </div>
+        )}
 
-        {/* right — photo */}
-        <div className="relative flex items-center justify-center overflow-hidden py-10 md:py-0">
-          <div className="anim-f1 absolute w-[300px] h-[300px] rounded-full pointer-events-none"
-               style={{ background: 'radial-gradient(circle,rgba(92,90,255,0.15) 0%,transparent 70%)', top: -50, left: -80 }} />
-          <div className="anim-f2 absolute w-[240px] h-[240px] rounded-full pointer-events-none"
-               style={{ background: 'radial-gradient(circle,rgba(255,92,138,0.12) 0%,transparent 70%)', bottom: -40, right: -60 }} />
-          <div className="relative w-[260px] h-[340px] sm:w-[320px] sm:h-[420px] md:w-[380px] md:h-[480px]">
-            <div className="blob-frame absolute inset-0 overflow-hidden border-2 border-[rgba(92,90,255,0.2)]">
-              <Image src="/saad2.jpg" alt="Saad Kamal" fill className="object-cover" style={{ filter: 'grayscale(15%)' }} />
+        {/* ══ HERO ══ */}
+        <section id="hero" className="page-grid min-h-screen grid grid-cols-1 md:grid-cols-2 pt-[65px] relative overflow-hidden">
+
+          {/* Left */}
+          <div className="reveal flex flex-col justify-center px-5 sm:px-8 lg:px-14 py-16 md:py-0 relative z-10">
+
+            {/* Status */}
+            <div className="inline-flex items-center gap-2 w-fit mb-8 px-4 py-2 rounded-full border border-zinc-200 bg-white">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="font-ibm text-[10px] tracking-[0.12em] text-zinc-400">OPEN FOR WORK — FREELANCE & REMOTE</span>
             </div>
-            <div className="anim-f3c absolute hidden sm:block rounded-[18px] px-5 py-4 border border-[rgba(100,100,150,0.15)] bg-white shadow-[0_4px_32px_rgba(0,0,0,0.06)]"
-                 style={{ left: -30, bottom: 80 }}>
-              <div className="font-[Syne] font-black text-[28px] leading-none text-[#5c5aff]">1+</div>
-              <div className="text-xs mt-0.5 text-[#6b6b85]">Years experience</div>
-            </div>
-            <div className="anim-f3b absolute hidden sm:block rounded-[18px] px-5 py-4 border border-[rgba(100,100,150,0.15)] bg-white shadow-[0_4px_32px_rgba(0,0,0,0.06)]"
-                 style={{ right: -20, top: 60 }}>
-              <div className="font-[Syne] font-black text-[28px] leading-none text-[#5c5aff]">10+</div>
-              <div className="text-xs mt-0.5 text-[#6b6b85]">Projects shipped</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ══════════════════ MARQUEE ══════════════════ */}
-      <div className="overflow-hidden border-t border-b border-white/5 bg-[#0a0a0f]">
-        <div className="anim-marquee flex w-max">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-            <span key={i}
-                  className="inline-flex items-center gap-3 px-5 sm:px-9 py-[14px] sm:py-[18px] font-mono text-xs tracking-widest uppercase whitespace-nowrap border-r border-white/[0.08] text-white/35 transition-colors hover:text-white/80 cursor-default">
-              <span className="text-[#5c5aff] text-[10px]">✦</span>
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
+            {/* Headline — Playfair editorial style */}
+            <h1 className="font-playfair font-black leading-[0.9] tracking-[-0.02em] mb-2 text-zinc-950"
+                style={{ fontSize: 'clamp(54px,11vw,108px)' }}>
+              Saad
+            </h1>
+            <h1 className="font-playfair font-black leading-[0.9] tracking-[-0.02em] mb-2 text-zinc-950 italic"
+                style={{ fontSize: 'clamp(54px,11vw,108px)' }}>
+              Kamal
+            </h1>
+            <h1 className="font-playfair font-black leading-[0.9] tracking-[-0.02em] mb-8 text-zinc-950"
+                style={{ fontSize: 'clamp(54px,11vw,108px)' }}>
+              <span className="relative inline-block">
+                Builds.
+                <span className="absolute -bottom-1 left-0 right-0 h-[4px] rounded-full bg-[#00e6c8]" />
+              </span>
+            </h1>
 
-      {/* ══════════════════ ABOUT ══════════════════ */}
-      <section id="about" className="px-5 sm:px-8 lg:px-12 py-16 sm:py-20 lg:py-[120px] bg-[#0a0a0f] relative">
-        <SectionLabel>About me</SectionLabel>
-        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
-
-          {/* text */}
-          <div className="reveal">
-            <H2 light>I build things<br />for the <span className="grad">web.</span></H2>
-            <p className="text-[15px] sm:text-[17px] leading-[1.75] text-white/65 mb-5">
-              As a passionate full-stack developer, I transform ideas into reality through elegant code and intuitive design.
-              My journey has been driven by curiosity and a desire to create meaningful digital experiences.
+            <p className="font-inter text-[15px] sm:text-[17px] leading-[1.75] max-w-[400px] mb-9 text-zinc-500">
+              Full-stack developer crafting production-ready web apps.
+              Available for freelance projects and remote roles.
             </p>
-            <p className="text-[15px] sm:text-[17px] leading-[1.75] text-white/65">
-              Through hands-on project development, I&apos;ve focused on modern web technologies and best practices.
-              Each project is an opportunity to learn and push boundaries.
-            </p>
-            <div className="quote-card relative font-[Syne] font-bold text-[18px] sm:text-[22px] text-white leading-[1.3] p-6 sm:p-7 mt-8 rounded-[20px] border border-white/[0.08] bg-white/[0.03]">
-              &ldquo;From concept to deployment — I enjoy owning the full lifecycle of a product.&rdquo;
-            </div>
-          </div>
 
-          {/* cards */}
-          <div className="reveal rd2 flex flex-col gap-4">
-            {ABOUT_CARDS.map(({ icon, title, desc }) => (
-              <div key={title}
-                   className="about-card rounded-[20px] p-6 sm:p-7 border border-white/[0.08] bg-white/[0.03] transition-all duration-300 hover:border-[rgba(92,90,255,0.4)] hover:bg-[rgba(92,90,255,0.05)] hover:translate-x-1.5">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-3.5 bg-[rgba(92,90,255,0.15)]">{icon}</div>
-                <h3 className="font-[Syne] font-bold text-[18px] text-white mb-1.5">{title}</h3>
-                <p className="text-sm leading-relaxed text-white/45">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════ PROJECTS ══════════════════ */}
-      <section id="projects" className="px-5 sm:px-8 lg:px-12 py-16 sm:py-20 lg:py-[120px] bg-[#f8f7ff]">
-        <SectionLabel>Selected work</SectionLabel>
-        <H2>Featured <span className="grad">Projects</span></H2>
-        <p className="text-[15px] sm:text-[16px] leading-relaxed max-w-[520px] mb-12 sm:mb-16 text-[#6b6b85]">
-          A curated selection of my most significant work in full-stack development.
-        </p>
-
-        {/* featured card */}
-        <div className="reveal grid grid-cols-1 md:grid-cols-2 rounded-[28px] overflow-hidden border border-[rgba(100,100,150,0.15)] bg-white mb-6 group transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(0,0,0,0.08)]">
-          <div className="relative overflow-hidden bg-[#eeedf8] min-h-[220px] sm:min-h-[260px]">
-            <Image src="/dp.png" alt="Fashion Stylized" fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to right,transparent 60%,rgba(255,255,255,0.3))' }} />
-          </div>
-          <div className="p-6 sm:p-10 lg:p-12 flex flex-col justify-center">
-            <span className="inline-block px-3 py-1 font-mono text-[11px] rounded-full mb-4 border border-[rgba(92,90,255,0.2)] bg-[rgba(92,90,255,0.1)] text-[#5c5aff] tracking-[0.08em] uppercase w-fit">
-              ✦ Featured project
-            </span>
-            <h3 className="font-[Syne] font-black text-[26px] sm:text-[34px] tracking-tighter leading-[1.05] mb-3.5 text-[#0a0a0f]">Fashion Stylized</h3>
-            <p className="text-[15px] leading-relaxed mb-6 text-[#6b6b85]">
-              A full-featured e-commerce platform with product management, shopping cart, user authentication, and secure checkout with real-time inventory updates.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-8">{['Next.js','TypeScript','Resend','MongoDB','Zustand'].map(t => <Tag key={t} label={t} />)}</div>
-            <div className="flex gap-3 flex-wrap">
-              <a href="https://www.fashionstylized.store/" target="_blank" rel="noopener noreferrer"
-                 className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[13px] font-medium no-underline bg-[#0a0a0f] text-white transition-all hover:bg-[#5c5aff] hover:-translate-y-0.5">
-                Live demo ↗
+            {/* CTAs */}
+            <div className="flex gap-3 flex-wrap mb-4">
+              <a href="#projects"
+                className="hoverable inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-[#00e6c8] hover:text-zinc-950 hover:-translate-y-0.5">
+                See my work <ArrowIcon />
               </a>
-              <a href="https://github.com/SaadkamalShaikhdev/fashionstylized" target="_blank" rel="noopener noreferrer"
-                 className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[13px] font-medium no-underline bg-[#eeedf8] text-[#0a0a0f] border border-[rgba(100,100,150,0.15)] transition-all hover:border-[#5c5aff] hover:text-[#5c5aff] hover:-translate-y-0.5">
-                GitHub
+              <a href="#contact"
+                className="hoverable inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[13px] font-semibold no-underline border border-zinc-200 text-zinc-700 transition-all hover:border-zinc-950 hover:text-zinc-950 hover:-translate-y-0.5">
+                Let&apos;s talk
               </a>
             </div>
-          </div>
-        </div>
 
-        {/* 2-col grid */}
-        <div className="reveal rd1 grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {PROJECTS.slice(1).map(({ img, alt, title, desc, tags, live, github }) => (
-            <div key={title}
-                 className="rounded-[24px] overflow-hidden border border-[rgba(100,100,150,0.15)] bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.07)]">
-              <div className="relative w-full h-[200px] bg-[#eeedf8]">
-                <Image src={img} alt={alt} fill className="object-cover" />
-              </div>
-              <div className="p-6 sm:p-7">
-                <h3 className="font-[Syne] font-black text-[20px] sm:text-[22px] tracking-tight mb-2.5 text-[#0a0a0f]">{title}</h3>
-                <p className="text-sm leading-relaxed mb-5 text-[#6b6b85]">{desc}</p>
-                <div className="flex flex-wrap gap-2 mb-5">{tags.map(t => <Tag key={t} label={t} />)}</div>
-                <div className="flex gap-3 flex-wrap">
-                  <a href={live} target="_blank" rel="noopener noreferrer"
-                     className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[13px] font-medium no-underline bg-[#0a0a0f] text-white transition-all hover:bg-[#5c5aff] hover:-translate-y-0.5">
-                    Live ↗
-                  </a>
-                  <a href={github} target="_blank" rel="noopener noreferrer"
-                     className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[13px] font-medium no-underline bg-[#eeedf8] text-[#0a0a0f] border border-[rgba(100,100,150,0.15)] transition-all hover:border-[#5c5aff] hover:text-[#5c5aff] hover:-translate-y-0.5">
-                    GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
+              className="hoverable inline-flex items-center gap-2 w-fit font-ibm text-[11px] text-zinc-400 no-underline transition-colors hover:text-zinc-950 mb-10 underline underline-offset-4">
+              <DownloadIcon /> Download CV
+            </a>
 
-        {/* stats */}
-        <div className="reveal rd2 grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
-          {STATS.map(({ num, label }) => (
-            <div key={label}
-                 className="stat-block text-center rounded-[24px] py-6 sm:py-8 px-4 sm:px-5 border border-[rgba(100,100,150,0.15)] bg-white transition-all duration-200 hover:-translate-y-1 hover:border-[#5c5aff]">
-              <div className="grad-num font-[Syne] font-black text-[32px] sm:text-[44px] tracking-[-0.04em] leading-none mb-1.5">{num}</div>
-              <div className="text-[12px] sm:text-[13px] text-[#6b6b85]">{label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════════════ SKILLS ══════════════════ */}
-      <section id="skills" className="px-5 sm:px-8 lg:px-12 py-16 sm:py-20 lg:py-[120px] bg-[#eeedf8]">
-        <div className="grid grid-cols-1 md:grid-cols-[340px_1fr] gap-10 md:gap-16 items-start">
-
-          {/* left */}
-          <div className="reveal">
-            <SectionLabel>Toolkit</SectionLabel>
-            <H2>Skills &<br /><span className="grad">Tech</span></H2>
-            <p className="text-[15px] sm:text-[16px] leading-relaxed text-[#6b6b85]">
-              A modern toolkit for building scalable, production-ready web applications from front to back.
-            </p>
-          </div>
-
-          {/* bento */}
-          <div className="reveal rd1">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3" style={{ gridAutoRows: '90px' }}>
-              {SKILLS.map(({ name, cat, featured }) => (
-                <div key={name}
-                     className={`skill-tile relative rounded-[20px] border flex flex-col items-center justify-center gap-1.5 p-4 sm:p-5 overflow-hidden transition-all duration-300 cursor-pointer
-                       ${featured ? 'col-span-2 bg-[#0a0a0f] border-transparent skill-feat' : 'bg-white border-[rgba(100,100,150,0.15)]'}
-                       hover:scale-[1.04] hover:shadow-[0_8px_32px_rgba(92,90,255,0.15)]`}>
-                  <span className={`s-name font-[Syne] font-bold relative z-10 text-center transition-colors duration-300 ${featured ? 'text-white text-[20px] sm:text-[24px]' : 'text-[#0a0a0f] text-[14px] sm:text-[15px]'}`}>
-                    {name}
-                  </span>
-                  <span className={`s-cat font-mono text-[10px] tracking-[0.08em] uppercase relative z-10 transition-colors duration-300 ${featured ? 'text-white/40' : 'text-[#6b6b85]'}`}>
-                    {cat}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-2.5 p-5 sm:p-6 mt-3 rounded-[20px] border border-[rgba(100,100,150,0.15)] bg-white">
-              {TOOLS.map(tool => (
-                <span key={tool}
-                      className="px-[18px] py-2 rounded-full text-[13px] font-medium border border-[rgba(100,100,150,0.15)] bg-[#f8f7ff] text-[#2e2e40] cursor-default transition-all hover:-translate-y-0.5 hover:border-[#5c5aff] hover:text-[#5c5aff]">
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════ CONTACT ══════════════════ */}
-      <section id="contact" className="px-5 sm:px-8 lg:px-12 py-16 sm:py-20 lg:py-[120px] bg-[#0a0a0f]">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-start">
-
-          {/* left */}
-          <div className="reveal">
-            <SectionLabel light>Contact</SectionLabel>
-            <H2 light>Let&apos;s<br /><span className="grad">Connect.</span></H2>
-            <p className="text-[15px] sm:text-[16px] leading-[1.7] text-white/45 mb-10">
-              Have a project in mind or just want to say hi? I&apos;m always open to new opportunities and conversations.
-            </p>
-            <div className="flex flex-col gap-3">
+            <div className="flex gap-2.5">
               {[
-                { href: 'mailto:saadkamaldev@gmail.com', icon: '✉', label: 'Email', value: 'saadkamaldev@gmail.com', link: true },
-                { href: 'tel:+923212563790', icon: '📞', label: 'Phone', value: '+92 321 256 3790', link: true },
-                { href: null, icon: '📍', label: 'Location', value: 'Orangi Town, Karachi', link: false },
-              ].map(({ href, icon, label, value, link }) => {
-                const inner = (
-                  <>
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-[17px] flex-shrink-0 bg-[rgba(92,90,255,0.15)]">{icon}</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-mono text-[11px] tracking-[0.08em] uppercase text-white/30">{label}</div>
-                      <div className="text-sm mt-0.5 text-white/80 truncate">{value}</div>
-                    </div>
-                    {link && <span className="text-white/25 text-lg">↗</span>}
-                  </>
-                )
-                return href ? (
-                  <a key={label} href={href}
-                     className="flex items-center gap-4 px-5 py-4 rounded-[16px] border border-white/[0.07] bg-white/[0.02] no-underline transition-all duration-200 hover:border-[rgba(92,90,255,0.4)] hover:bg-[rgba(92,90,255,0.06)] hover:translate-x-1">
-                    {inner}
-                  </a>
-                ) : (
-                  <div key={label} className="flex items-center gap-4 px-5 py-4 rounded-[16px] border border-white/[0.07] bg-white/[0.02]">
-                    {inner}
-                  </div>
-                )
-              })}
+                { href: 'https://github.com/The-Saadhere', icon: <GithubIcon />, label: 'GitHub' },
+                { href: 'https://www.linkedin.com/in/the-saadhere', icon: <LinkedinIcon />, label: 'LinkedIn' },
+                { href: 'mailto:saadkamaldev@gmail.com', icon: <MailIcon />, label: 'Email' },
+              ].map(({ href, icon, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
+                  className="hoverable w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 text-zinc-400 no-underline transition-all hover:border-zinc-950 hover:text-zinc-950 hover:-translate-y-1">
+                  {icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* form */}
-          <div className="reveal rd2 rounded-[28px] p-6 sm:p-10 border border-white/[0.07] bg-white/[0.03]">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              {(['name','email'] as const).map(k => (
-                <div key={k} className="flex flex-col gap-2">
-                  <label className="font-mono text-[12px] font-medium tracking-[0.06em] uppercase text-white/40">{k}</label>
-                  <input type={k === 'email' ? 'email' : 'text'} value={form[k]} onChange={set(k)}
-                         placeholder={k === 'email' ? 'your@email.com' : 'Your name'}
-                         className={inputCls} />
+          {/* Right — photo */}
+          <div className="relative flex items-center justify-center py-10 md:py-0 overflow-hidden">
+            <div className="absolute w-80 h-80 rounded-full bg-[#00e6c8]/[0.07] blur-3xl" />
+
+            <div className="relative w-[230px] h-[300px] sm:w-[280px] sm:h-[365px] md:w-[350px] md:h-[455px]">
+              <div className="photo-frame absolute inset-0 border border-zinc-200">
+                <Image src="/saad2.jpg" alt="Saad Kamal" fill className="object-cover" />
+              </div>
+
+              {/* Floating badges */}
+              <div className="fa absolute hidden sm:flex items-center gap-3 rounded-xl px-4 py-3 border border-zinc-200 bg-white shadow-lg"
+                style={{ left: -58, bottom: 110 }}>
+                <span className="text-[20px]">🚀</span>
+                <div>
+                  <div className="font-playfair font-bold text-[22px] leading-none text-zinc-950">10+</div>
+                  <div className="font-ibm text-[9px] text-zinc-400 mt-1 tracking-wider uppercase">Projects</div>
+                </div>
+              </div>
+
+              <div className="fb absolute hidden sm:flex items-center gap-3 rounded-xl px-4 py-3 border border-zinc-200 bg-white shadow-lg"
+                style={{ right: -52, top: 95 }}>
+                <span className="text-[20px]">⚡</span>
+                <div>
+                  <div className="font-playfair font-bold text-[22px] leading-none text-zinc-950">Full</div>
+                  <div className="font-ibm text-[9px] text-zinc-400 mt-1 tracking-wider uppercase">Stack</div>
+                </div>
+              </div>
+
+              {/* Available tag */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-zinc-950 text-white font-ibm text-[10px] tracking-widest whitespace-nowrap shadow-lg">
+                Available now ✦
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ MARQUEE ══ */}
+        <div className="overflow-hidden border-y border-zinc-900 bg-zinc-950">
+          <div className="mq flex w-max py-[14px]">
+            {[...MARQUEE, ...MARQUEE].map((item, i) => (
+              <span key={i} className="inline-flex items-center gap-3 px-8 sm:px-11 font-ibm text-[10px] tracking-[0.16em] uppercase whitespace-nowrap border-r border-white/[0.06] text-white/25 hover:text-white/65 transition-colors cursor-default">
+                <span className="accent text-[9px]">✦</span>{item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* ══ FREELANCE STRIP ══ */}
+        <div className="bg-zinc-950 px-5 sm:px-8 lg:px-14 py-8 border-b border-white/[0.05]">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <div>
+              <p className="font-playfair font-bold text-white text-[20px] sm:text-[24px] italic mb-0.5">
+                Need a full-stack developer for your project?
+              </p>
+              <p className="font-inter text-zinc-400 text-[13px]">Available for freelance and remote contracts. Fast replies guaranteed.</p>
+            </div>
+            <div className="flex gap-3 shrink-0 flex-wrap">
+              <a href="mailto:saadkamaldev@gmail.com"
+                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline bg-[#00e6c8] text-zinc-950 transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
+                Email me now <ArrowIcon />
+              </a>
+              <a href="https://www.linkedin.com/in/the-saadhere" target="_blank" rel="noopener noreferrer"
+                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#00e6c8]/50 hover:text-[#00e6c8] hover:-translate-y-0.5 whitespace-nowrap">
+                <LinkedinIcon /> LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* ══ ABOUT ══ */}
+        <section id="about" className="px-5 sm:px-8 lg:px-14 py-20 lg:py-32 bg-zinc-950">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+
+            <div className="reveal">
+              <Eyebrow light>About me</Eyebrow>
+              <h2 className="font-playfair font-black tracking-tight leading-[0.95] mb-6 text-white"
+                  style={{ fontSize: 'clamp(36px,5vw,60px)' }}>
+                I build things<br />for the <span className="accent italic">web.</span>
+              </h2>
+              <p className="font-inter text-[15px] sm:text-[16px] leading-[1.8] text-white/50 mb-5">
+                Self-driven full-stack developer based in Karachi. I care about the whole product —
+                clean APIs, secure auth, intuitive UIs, and fast deploys.
+              </p>
+              <p className="font-inter text-[15px] sm:text-[16px] leading-[1.8] text-white/50 mb-8">
+                I&apos;ve shipped production apps handling real users and real data. Every project I own
+                fully — from the DB schema to the last pixel.
+              </p>
+              <blockquote className="border-l-2 border-accent pl-5 font-playfair font-bold text-[18px] sm:text-[22px] text-white leading-[1.4] italic">
+                &ldquo;From concept to deployment — I enjoy owning the full lifecycle.&rdquo;
+              </blockquote>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {[
+                { icon: '🔐', title: 'Auth & Security First', desc: 'Role-based access control, protected routes, secure sessions — not just a login page.' },
+                { icon: '📦', title: 'Full Ownership', desc: 'DB schema, API design, frontend state, CI/CD — I own the full stack so nothing falls through.' },
+                { icon: '🚢', title: 'Ships on Time', desc: 'I build iteratively and deploy early. You always know where things stand.' },
+              ].map(({ icon, title, desc }, i) => (
+                <div key={title} className={`reveal d${i+1} hoverable group rounded-2xl p-6 border border-white/[0.07] bg-white/[0.03] transition-all hover:border-[#00e6c8]/30 hover:bg-[#00e6c8]/[0.04] hover:translate-x-1.5`}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 bg-white/[0.06]">{icon}</div>
+                  <h3 className="font-playfair font-bold text-[17px] text-white mb-1.5">{title}</h3>
+                  <p className="font-inter text-[13px] leading-relaxed text-white/40">{desc}</p>
                 </div>
               ))}
             </div>
-            <div className="flex flex-col gap-2 mb-4">
-              <label className="font-mono text-[12px] font-medium tracking-[0.06em] uppercase text-white/40">subject</label>
-              <input type="text" value={form.subject} onChange={set('subject')} placeholder="How can I help?" className={inputCls} />
-            </div>
-            <div className="flex flex-col gap-2 mb-4">
-              <label className="font-mono text-[12px] font-medium tracking-[0.06em] uppercase text-white/40">message</label>
-              <textarea rows={5} value={form.message} onChange={set('message')} placeholder="Tell me about your project..." className={inputCls} style={{ resize: 'none' }} />
-            </div>
-            <button onClick={handleSend} disabled={status === 'sending'}
-                    className={`w-full py-4 rounded-[14px] font-[Syne] font-bold text-[15px] text-white flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 disabled:opacity-60 ${btnBg}`}>
-              <SendIcon />
-              {btnLabel}
-            </button>
           </div>
-        </div>
-      </section>
+        </section>
 
-    </div>
+        {/* ══ PROJECTS ══ */}
+        <section id="projects" className="px-5 sm:px-8 lg:px-14 py-20 lg:py-32 bg-white">
+          <div className="max-w-6xl mx-auto">
+            <Eyebrow>Selected work</Eyebrow>
+            <h2 className="font-playfair font-black tracking-tight leading-[0.93] mb-3 text-zinc-950"
+                style={{ fontSize: 'clamp(36px,5vw,62px)' }}>
+              Featured <span className="italic accent">Projects</span>
+            </h2>
+            <p className="font-inter text-[15px] text-zinc-400 max-w-[440px] mb-14">
+              Production apps, not experiments. Each one is live, full-stack, and built end-to-end.
+            </p>
+
+            {/* Featured card */}
+            <div className="reveal proj-card mb-6 rounded-3xl overflow-hidden border border-zinc-200 bg-white grid grid-cols-1 md:grid-cols-[1fr_1.1fr]">
+              <div className="relative min-h-[240px] md:min-h-0 bg-zinc-100 overflow-hidden">
+                <Image src="/dp.png" alt="Fashion Stylized" fill className="object-cover" />
+                <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm font-ibm text-[10px] text-zinc-400 border border-zinc-200">
+                  2024
+                </div>
+              </div>
+              <div className="p-7 sm:p-10 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-4 flex-wrap">
+                  <span className="font-ibm text-[10px] tracking-[0.1em] uppercase accent border border-[#00e6c8]/25 bg-[#00e6c8]/[0.07] rounded-full px-3 py-1">✦ Featured</span>
+                  <span className="font-ibm text-[10px] tracking-[0.08em] uppercase text-zinc-400">E-Commerce</span>
+                </div>
+                <h3 className="font-playfair font-bold text-[26px] sm:text-[34px] tracking-tight leading-[1.05] mb-3 text-zinc-950">
+                  Fashion Stylized
+                </h3>
+                <p className="font-inter text-[14px] leading-relaxed text-zinc-500 mb-5">{PROJECTS[0].desc}</p>
+                <ul className="flex flex-col gap-2 mb-6">
+                  {PROJECTS[0].highlights.map(h => (
+                    <li key={h} className="flex items-start gap-2.5 text-[13px] text-zinc-700 font-inter">
+                      <span className="accent mt-[2px] shrink-0">→</span>{h}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mb-7">{PROJECTS[0].tags.map(t => <Tag key={t} label={t} />)}</div>
+                <div className="flex gap-3 flex-wrap">
+                  <a href={PROJECTS[0].live} target="_blank" rel="noopener noreferrer"
+                    className="hoverable inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-[#00e6c8] hover:text-zinc-950 hover:-translate-y-0.5">
+                    Live demo <ArrowIcon />
+                  </a>
+                  <a href={PROJECTS[0].github} target="_blank" rel="noopener noreferrer"
+                    className="hoverable inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[13px] font-semibold no-underline bg-zinc-50 text-zinc-700 border border-zinc-200 transition-all hover:border-zinc-950 hover:text-zinc-950 hover:-translate-y-0.5">
+                    <GithubIcon /> GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 2-col */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-16">
+              {PROJECTS.slice(1).map((p, i) => (
+                <div key={p.title} className={`reveal d${i+1} proj-card rounded-2xl overflow-hidden border border-zinc-200 bg-white`}>
+                  <div className="relative w-full h-[200px] bg-zinc-100 overflow-hidden">
+                    <Image src={p.img} alt={p.title} fill className="object-cover" />
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm font-ibm text-[10px] text-zinc-400 border border-zinc-200">
+                      {p.type}
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-playfair font-bold text-[21px] tracking-tight mb-2 text-zinc-950">{p.title}</h3>
+                    <p className="font-inter text-[13px] leading-relaxed mb-4 text-zinc-500">{p.desc}</p>
+                    <div className="flex flex-wrap gap-1.5 mb-5">{p.tags.map(t => <Tag key={t} label={t} />)}</div>
+                    <div className="flex gap-2.5 flex-wrap">
+                      <a href={p.live} target="_blank" rel="noopener noreferrer"
+                        className="hoverable inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-[#00e6c8] hover:text-zinc-950 hover:-translate-y-0.5">
+                        Live <ArrowIcon />
+                      </a>
+                      <a href={p.github} target="_blank" rel="noopener noreferrer"
+                        className="hoverable inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold no-underline bg-zinc-50 text-zinc-600 border border-zinc-200 transition-all hover:border-zinc-950 hover:-translate-y-0.5">
+                        <GithubIcon /> GitHub
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Mid-page CTA */}
+            <div className="reveal rounded-2xl bg-zinc-950 p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
+              <div>
+                <p className="font-playfair font-bold text-white text-[20px] sm:text-[26px] italic mb-1">Like what you see?</p>
+                <p className="font-inter text-zinc-400 text-[13px]">I&apos;m available for new projects right now. Let&apos;s build something together.</p>
+              </div>
+              <div className="flex gap-3 shrink-0 flex-wrap">
+                <a href="#contact"
+                  className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline bg-[#00e6c8] text-zinc-950 transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
+                  Start a project <ArrowIcon />
+                </a>
+                <a href="https://github.com/The-Saadhere" target="_blank" rel="noopener noreferrer"
+                  className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#00e6c8]/50 hover:text-[#00e6c8] hover:-translate-y-0.5 whitespace-nowrap">
+                  View GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ SERVICES ══ */}
+        <section id="services" className="px-5 sm:px-8 lg:px-14 py-20 lg:py-32 bg-zinc-50">
+          <div className="max-w-6xl mx-auto">
+            <Eyebrow>What I build</Eyebrow>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14">
+              <h2 className="font-playfair font-black tracking-tight leading-[0.93] text-zinc-950"
+                  style={{ fontSize: 'clamp(36px,5vw,62px)' }}>
+                Services I <span className="italic accent">Offer</span>
+              </h2>
+              <a href="#contact"
+                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white self-start md:self-auto transition-all hover:bg-[#00e6c8] hover:text-zinc-950 hover:-translate-y-0.5 shrink-0">
+                Discuss your project <ArrowIcon />
+              </a>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {SERVICES.map(({ icon, title, desc, items }, i) => (
+                <div key={title} className={`reveal d${i % 2} svc-card rounded-2xl p-7 border border-zinc-200 bg-white`}>
+                  <div className="text-[28px] mb-4">{icon}</div>
+                  <h3 className="font-playfair font-bold text-[20px] text-zinc-950 mb-2">{title}</h3>
+                  <p className="font-inter text-[13px] leading-relaxed text-zinc-500 mb-5">{desc}</p>
+                  <ul className="flex flex-col gap-2">
+                    {items.map(item => (
+                      <li key={item} className="flex items-center gap-2.5 text-[12.5px] font-inter text-zinc-600">
+                        <span className="w-4 h-4 rounded-full bg-[#00e6c8]/15 flex items-center justify-center accent shrink-0">
+                          <CheckIcon />
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══ SKILLS ══ */}
+        <section id="skills" className="px-5 sm:px-8 lg:px-14 py-20 lg:py-32 bg-zinc-950">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[290px_1fr] gap-12 md:gap-16 items-start">
+
+            <div className="reveal">
+              <Eyebrow light>Toolkit</Eyebrow>
+              <h2 className="font-playfair font-black tracking-tight leading-[0.93] mb-4 text-white"
+                  style={{ fontSize: 'clamp(34px,4.5vw,54px)' }}>
+                Skills &<br /><span className="accent italic">Tech</span>
+              </h2>
+              <p className="font-inter text-[14px] leading-[1.75] text-white/45 mb-7">
+                A modern stack for building secure, scalable, production-ready web apps — front to back.
+              </p>
+              <a href="https://www.linkedin.com/in/the-saadhere" target="_blank" rel="noopener noreferrer"
+                className="hoverable inline-flex items-center gap-2 px-5 py-3 rounded-full text-[13px] font-semibold no-underline bg-[#00e6c8] text-zinc-950 transition-all hover:brightness-110 hover:-translate-y-0.5">
+                View LinkedIn <ArrowIcon />
+              </a>
+            </div>
+
+            <div className="reveal d1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3" style={{ gridAutoRows: '86px' }}>
+                {SKILLS.map(({ name, cat, wide }) => (
+                  <div key={name}
+                    className={`hoverable skill-tile rounded-2xl border flex flex-col items-center justify-center gap-1.5 p-4 cursor-default
+                      ${wide ? 'col-span-2 bg-white/[0.07] border-white/[0.09]' : 'bg-white/[0.03] border-white/[0.06]'}`}>
+                    <span className={`font-playfair font-bold text-center ${wide ? 'text-white text-[20px] sm:text-[24px]' : 'text-white/80 text-[13px] sm:text-[15px]'}`}>{name}</span>
+                    <span className="font-ibm text-[9px] tracking-[0.1em] uppercase text-white/25">{cat}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.03]">
+                {TOOLS.map(tool => (
+                  <span key={tool}
+                    className="hoverable px-4 py-1.5 rounded-full font-inter text-[12px] font-medium border border-white/[0.07] bg-white/[0.03] text-white/45 cursor-default transition-all hover:-translate-y-0.5 hover:border-[#00e6c8]/40 hover:text-[#00e6c8]">
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ CONTACT ══ */}
+        <section id="contact" className="px-5 sm:px-8 lg:px-14 py-20 lg:py-32 bg-zinc-950">
+          <div className="max-w-6xl mx-auto">
+
+            <div className="reveal mb-12 text-center">
+              <Eyebrow light>Contact</Eyebrow>
+              <h2 className="font-playfair font-black tracking-tight leading-[0.93] mb-4 text-white"
+                  style={{ fontSize: 'clamp(36px,5vw,68px)' }}>
+                Ready to work <span className="accent italic">together?</span>
+              </h2>
+              <p className="font-inter text-[15px] text-white/40 max-w-[460px] mx-auto">
+                Whether you have a project or a remote role — I&apos;m open, available, and I reply fast.
+              </p>
+            </div>
+
+            {/* 3-way CTA cards */}
+            <div className="reveal grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+              {[
+                { icon: '✉', label: 'Send an email', sub: 'saadkamaldev@gmail.com', href: 'mailto:saadkamaldev@gmail.com', cta: 'Email now' },
+                { icon: '💼', label: 'Connect on LinkedIn', sub: 'For remote job opportunities', href: 'https://www.linkedin.com/in/the-saadhere', cta: 'Open LinkedIn' },
+                { icon: '📂', label: 'Browse my code', sub: 'github.com/The-Saadhere', href: 'https://github.com/The-Saadhere', cta: 'View GitHub' },
+              ].map(({ icon, label, sub, href, cta }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                  className="hoverable group flex flex-col gap-4 p-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] no-underline transition-all hover:border-[#00e6c8]/30 hover:bg-[#00e6c8]/[0.04] hover:-translate-y-1">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-white/[0.06]">{icon}</div>
+                  <div>
+                    <p className="font-playfair font-bold text-[16px] text-white mb-0.5">{label}</p>
+                    <p className="font-ibm text-[10.5px] text-white/25 truncate">{sub}</p>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 font-inter text-[12px] font-semibold accent mt-auto">
+                    {cta} <ArrowIcon />
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div className="reveal flex items-center gap-4 mb-10">
+              <div className="flex-1 h-px bg-white/[0.06]" />
+              <span className="font-ibm text-[10px] text-white/20 tracking-widest uppercase">or fill the form</span>
+              <div className="flex-1 h-px bg-white/[0.06]" />
+            </div>
+
+            {/* Form */}
+            <div className="reveal max-w-2xl mx-auto rounded-2xl p-6 sm:p-9 border border-white/[0.07] bg-white/[0.03]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                {(['name','email'] as const).map(k => (
+                  <div key={k} className="flex flex-col gap-1.5">
+                    <label className="font-ibm text-[10.5px] tracking-[0.1em] uppercase text-white/25">
+                      {k} <span className="accent">*</span>
+                    </label>
+                    <input type={k === 'email' ? 'email' : 'text'} value={form[k]} onChange={set(k)}
+                      placeholder={k === 'email' ? 'your@email.com' : 'Your name'}
+                      className={inputCls} />
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col gap-1.5 mb-4">
+                <label className="font-ibm text-[10.5px] tracking-[0.1em] uppercase text-white/25">subject</label>
+                <input type="text" value={form.subject} onChange={set('subject')} placeholder="What's this about?" className={inputCls} />
+              </div>
+              <div className="flex flex-col gap-1.5 mb-5">
+                <label className="font-ibm text-[10.5px] tracking-[0.1em] uppercase text-white/25">
+                  message <span className="accent">*</span>
+                </label>
+                <textarea rows={5} value={form.message} onChange={set('message')}
+                  placeholder="Tell me about your project or opportunity…" className={inputCls} style={{ resize: 'none' }} />
+              </div>
+              <button onClick={handleSend} disabled={status === 'sending'}
+                className={`w-full py-4 rounded-xl font-playfair font-bold text-[15px] flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 disabled:opacity-50 ${btnBg}`}>
+                <SendIcon />{btnLabel}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ FOOTER ══ */}
+        <footer className="bg-zinc-950 border-t border-white/[0.05] px-5 sm:px-8 lg:px-14 py-8">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="font-playfair font-bold text-[18px] text-white italic tracking-tight">
+              SK<span className="accent not-italic">.</span>
+            </span>
+            <div className="flex gap-3">
+              {[
+                { href: 'https://github.com/The-Saadhere', icon: <GithubIcon />, label: 'GitHub' },
+                { href: 'https://www.linkedin.com/in/the-saadhere', icon: <LinkedinIcon />, label: 'LinkedIn' },
+                { href: 'mailto:saadkamaldev@gmail.com', icon: <MailIcon />, label: 'Email' },
+              ].map(({ href, icon, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
+                  className="hoverable w-9 h-9 flex items-center justify-center rounded-xl border border-white/[0.07] text-white/30 no-underline transition-all hover:border-[#00e6c8]/40 hover:text-[#00e6c8]">
+                  {icon}
+                </a>
+              ))}
+            </div>
+            <span className="font-ibm text-[10px] text-white/20 tracking-[0.08em]">
+              Built with Next.js · Tailwind
+            </span>
+          </div>
+        </footer>
+
+      </div>
+    </>
   )
 }

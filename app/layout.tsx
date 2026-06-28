@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono,Poppins,Inter } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer";
+
 
 
 
@@ -35,7 +35,7 @@ export default function RootLayout({
       >
          
           {children}
-          <Footer />
+          
       </body>
     </html>
   );
