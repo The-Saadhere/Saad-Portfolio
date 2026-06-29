@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, Package, Rocket, ShieldCheck, ShoppingBag, PanelsTopLeft, Link2, Zap, Mail, BriefcaseBusiness, FolderGit2 } from 'lucide-react'
 
 type Status = 'idle' | 'sending' | 'ok' | 'err'
 
@@ -37,7 +36,11 @@ const CloseIcon = () => (
     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 )
-const ArrowIcon = () => <ArrowUpRight size={13} strokeWidth={2.5} />
+const ArrowIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <path d="M7 17L17 7M17 7H7M17 7v10" />
+  </svg>
+)
 const DownloadIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
@@ -66,15 +69,38 @@ function Cursor() {
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    const on = () => { dotRef.current?.classList.add('scale-[3]', '!bg-[rgba(0,230,200,0.5)]'); ringRef.current?.classList.add('!opacity-0') }
-    const off = () => { dotRef.current?.classList.remove('scale-[3]', '!bg-[rgba(0,230,200,0.5)]'); ringRef.current?.classList.remove('!opacity-0') }
+    // Dot stays small on hover — no scale, no bleed onto nearby cards
+    const on = () => {
+      dotRef.current?.style.setProperty('width', '14px')
+      dotRef.current?.style.setProperty('height', '14px')
+      dotRef.current?.style.setProperty('background', 'rgba(0,230,200,0.85)')
+      dotRef.current?.style.setProperty('margin', '-3px 0 0 -3px')
+      if (ringRef.current) {
+        ringRef.current.style.width = '14px'
+        ringRef.current.style.height = '14px'
+        ringRef.current.style.borderColor = '#00e6c8'
+        ringRef.current.style.opacity = '0.9'
+      }
+    }
+    const off = () => {
+      dotRef.current?.style.removeProperty('width')
+      dotRef.current?.style.removeProperty('height')
+      dotRef.current?.style.removeProperty('background')
+      dotRef.current?.style.removeProperty('margin')
+      if (ringRef.current) {
+        ringRef.current.style.width = ''
+        ringRef.current.style.height = ''
+        ringRef.current.style.borderColor = ''
+        ringRef.current.style.opacity = ''
+      }
+    }
     document.querySelectorAll('a,button,.hoverable').forEach(el => { el.addEventListener('mouseenter', on); el.addEventListener('mouseleave', off) })
     return () => { document.removeEventListener('mousemove', mv); cancelAnimationFrame(raf) }
   }, [])
   return (
     <>
-      <div ref={dotRef} className="fixed w-2.5 h-2.5 bg-[#00e6c8] rounded-full pointer-events-none z-[9999] transition-transform duration-100 hidden md:block" />
-      <div ref={ringRef} className="fixed w-8 h-8 border border-[#00e6c8]/40 rounded-full pointer-events-none z-[9998] hidden md:block transition-opacity duration-150" />
+      <div ref={dotRef} className="fixed w-2.5 h-2.5 bg-[#00e6c8] rounded-full pointer-events-none z-[9999] hidden md:block" style={{transition: "width 0.15s ease, height 0.15s ease, background 0.15s ease"}} />
+      <div ref={ringRef} className="fixed w-8 h-8 border border-[#00e6c8]/40 rounded-full pointer-events-none z-[9998] hidden md:block" style={{transition: "width 0.15s ease, height 0.15s ease, opacity 0.15s ease, border-color 0.15s ease"}} />
     </>
   )
 }
@@ -104,7 +130,7 @@ const PROJECTS = [
     ],
     tags: ['Next.js','TypeScript','MongoDB','NextAuth','Zustand','Resend','Zod'],
     live: 'https://www.fashionstylized.store/',
-    github: 'https://github.com/The-Saadhere/fashionstylized',
+    github: 'https://github.com/SaadkamalShaikhdev/fashionstylized',
   },
   {
     img: '/urlshortener.png', title: 'MiniLink', year: '2024', type: 'SaaS Tool',
@@ -112,7 +138,7 @@ const PROJECTS = [
     highlights: [],
     tags: ['Next.js','MongoDB','NextAuth'],
     live: 'https://mini-link-five.vercel.app/',
-    github: 'https://github.com/The-Saadhere/MiniLink',
+    github: 'https://github.com/SaadkamalShaikhdev/MiniLink',
   },
   {
     img: '/passopp.png', title: 'PassOp', year: '2024', type: 'Browser Tool',
@@ -120,31 +146,31 @@ const PROJECTS = [
     highlights: [],
     tags: ['React.js','JavaScript','LocalStorage'],
     live: 'https://pass-op-three-wine.vercel.app/',
-    github: 'https://github.com/The-Saadhere/PassOP',
+    github: 'https://github.com/SaadkamalShaikhdev/PassOP',
   },
 ]
 
 const SERVICES = [
   {
-    icon: <ShoppingBag size={22} strokeWidth={2} />,
+    icon: '🛒',
     title: 'E-Commerce Stores',
     desc: 'Full online stores with product management, cart, secure checkout, order tracking, and an admin dashboard to run everything.',
     items: ['Product & inventory management','User auth + order history','Admin dashboard & analytics'],
   },
   {
-    icon: <PanelsTopLeft size={22} strokeWidth={2} />,
+    icon: '⚙️',
     title: 'Web Apps & Dashboards',
     desc: 'Custom web applications with real data, role-based access, and clean UIs — built to scale from day one.',
     items: ['Role-based auth & permissions','REST API design & integration','Responsive, accessible UI'],
   },
   {
-    icon: <Link2 size={22} strokeWidth={2} />,
+    icon: '🔗',
     title: 'API & Backend Dev',
     desc: 'Fast, well-structured backends with clean endpoints, database design, validation, and email integrations.',
     items: ['MongoDB schema design','Zod validation & error handling','Transactional email via Resend'],
   },
   {
-    icon: <Zap size={22} strokeWidth={2} />,
+    icon: '🚀',
     title: 'Performance & Deployment',
     desc: 'Production-ready deployments on Vercel with optimised load times, image handling, and zero-downtime launches.',
     items: ['Next.js App Router & SSR','Vercel + CI/CD setup','Core Web Vitals optimisation'],
@@ -257,13 +283,12 @@ export default function Home() {
         .svc-card { transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
         .svc-card:hover { border-color: #00e6c8 !important; transform: translateY(-3px); }
 
-        /* Skill tile */
-        .skill-tile { transition: transform 0.18s ease, border-color 0.18s ease; }
-        .skill-tile:hover { transform: translateY(-3px); border-color: rgba(0,230,200,0.45) !important; }
+        /* Skill tile — outline avoids all Tailwind border conflicts */
+        .skill-tile { transition: transform 0.18s ease, outline-color 0.18s ease; outline: 1.5px solid transparent; outline-offset: -1px; }
+        .skill-tile:hover { transform: translateY(-3px); outline-color: rgba(0,230,200,0.55); }
 
-        /* Accent text + line */
+        /* Accent */
         .accent { color: #00e6c8; }
-        .border-accent { border-color: #00e6c8; }
       `}</style>
 
       <div className="font-inter bg-white text-zinc-950 overflow-x-hidden md:cursor-none">
@@ -282,7 +307,7 @@ export default function Home() {
             ))}
           </ul>
           <div className="hidden md:flex items-center gap-2">
-            <a href="mailto:saadkamaldev@gmail.com"
+            <a href="mailto:saadkamalshaikhdev@gmail.com"
               className="hoverable font-inter text-[13px] font-medium px-5 py-2.5 rounded-full border border-zinc-200 text-zinc-700 no-underline transition-all hover:border-zinc-950 hover:text-zinc-950">
               Email me
             </a>
@@ -305,7 +330,7 @@ export default function Home() {
                 {id}
               </a>
             ))}
-            <a href="mailto:saadkamaldev@gmail.com"
+            <a href="mailto:saadkamalshaikhdev@gmail.com"
               className="mt-3 text-center font-semibold text-[13px] py-3.5 rounded-full bg-zinc-950 text-white no-underline">
               Email me directly
             </a>
@@ -366,8 +391,8 @@ export default function Home() {
             <div className="flex gap-2.5">
               {[
                 { href: 'https://github.com/The-Saadhere', icon: <GithubIcon />, label: 'GitHub' },
-                { href: 'https://www.linkedin.com/in/the-saadhere', icon: <LinkedinIcon />, label: 'LinkedIn' },
-                { href: 'mailto:saadkamaldev@gmail.com', icon: <MailIcon />, label: 'Email' },
+                { href: 'https://www.linkedin.com/in/saadkamal-shaikh-887449398/', icon: <LinkedinIcon />, label: 'LinkedIn' },
+                { href: 'mailto:saadkamalshaikhdev@gmail.com', icon: <MailIcon />, label: 'Email' },
               ].map(({ href, icon, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
                   className="hoverable w-10 h-10 flex items-center justify-center rounded-xl border border-zinc-200 text-zinc-400 no-underline transition-all hover:border-zinc-950 hover:text-zinc-950 hover:-translate-y-1">
@@ -434,11 +459,11 @@ export default function Home() {
               <p className="font-inter text-zinc-400 text-[13px]">Available for freelance and remote contracts. Fast replies guaranteed.</p>
             </div>
             <div className="flex gap-3 shrink-0 flex-wrap">
-              <a href="mailto:saadkamaldev@gmail.com"
+              <a href="mailto:saadkamalshaikhdev@gmail.com"
                 className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline bg-[#00e6c8] text-zinc-950 transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
                 Email me now <ArrowIcon />
               </a>
-              <a href="https://www.linkedin.com/in/the-saadhere" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.linkedin.com/in/saadkamal-shaikh-887449398/" target="_blank" rel="noopener noreferrer"
                 className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#00e6c8]/50 hover:text-[#00e6c8] hover:-translate-y-0.5 whitespace-nowrap">
                 <LinkedinIcon /> LinkedIn
               </a>
@@ -464,19 +489,19 @@ export default function Home() {
                 I&apos;ve shipped production apps handling real users and real data. Every project I own
                 fully — from the DB schema to the last pixel.
               </p>
-              <blockquote className="border-l-2 border-accent pl-5 font-playfair font-bold text-[18px] sm:text-[22px] text-white leading-[1.4] italic">
+              <blockquote className="border-l-2 border-[#00e6c8] pl-5 font-playfair font-bold text-[18px] sm:text-[22px] text-white leading-[1.4] italic">
                 &ldquo;From concept to deployment — I enjoy owning the full lifecycle.&rdquo;
               </blockquote>
             </div>
 
             <div className="flex flex-col gap-4">
               {[
-                { icon: <ShieldCheck size={18} strokeWidth={2.2} />, title: 'Auth & Security First', desc: 'Role-based access control, protected routes, secure sessions — not just a login page.' },
-                { icon: <Package size={18} strokeWidth={2.2} />, title: 'Full Ownership', desc: 'DB schema, API design, frontend state, CI/CD — I own the full stack so nothing falls through.' },
-                { icon: <Rocket size={18} strokeWidth={2.2} />, title: 'Ships on Time', desc: 'I build iteratively and deploy early. You always know where things stand.' },
+                { icon: '🔐', title: 'Auth & Security First', desc: 'Role-based access control, protected routes, secure sessions — not just a login page.' },
+                { icon: '📦', title: 'Full Ownership', desc: 'DB schema, API design, frontend state, CI/CD — I own the full stack so nothing falls through.' },
+                { icon: '🚢', title: 'Ships on Time', desc: 'I build iteratively and deploy early. You always know where things stand.' },
               ].map(({ icon, title, desc }, i) => (
                 <div key={title} className={`reveal d${i+1} hoverable group rounded-2xl p-6 border border-white/[0.07] bg-white/[0.03] transition-all hover:border-[#00e6c8]/30 hover:bg-[#00e6c8]/[0.04] hover:translate-x-1.5`}>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 bg-white/[0.06] text-white">{icon}</div>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 bg-white/[0.06]">{icon}</div>
                   <h3 className="font-playfair font-bold text-[17px] text-white mb-1.5">{title}</h3>
                   <p className="font-inter text-[13px] leading-relaxed text-white/40">{desc}</p>
                 </div>
@@ -634,7 +659,7 @@ export default function Home() {
               <p className="font-inter text-[14px] leading-[1.75] text-white/45 mb-7">
                 A modern stack for building secure, scalable, production-ready web apps — front to back.
               </p>
-              <a href="https://www.linkedin.com/in/the-saadhere" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.linkedin.com/in/saadkamal-shaikh-887449398/" target="_blank" rel="noopener noreferrer"
                 className="hoverable inline-flex items-center gap-2 px-5 py-3 rounded-full text-[13px] font-semibold no-underline bg-[#00e6c8] text-zinc-950 transition-all hover:brightness-110 hover:-translate-y-0.5">
                 View LinkedIn <ArrowIcon />
               </a>
@@ -644,7 +669,7 @@ export default function Home() {
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3" style={{ gridAutoRows: '86px' }}>
                 {SKILLS.map(({ name, cat, wide }) => (
                   <div key={name}
-                    className={`hoverable skill-tile rounded-2xl border flex flex-col items-center justify-center gap-1.5 p-4 cursor-default
+                    className={`skill-tile rounded-2xl border flex flex-col items-center justify-center gap-1.5 p-4 cursor-default
                       ${wide ? 'col-span-2 bg-white/[0.07] border-white/[0.09]' : 'bg-white/[0.03] border-white/[0.06]'}`}>
                     <span className={`font-playfair font-bold text-center ${wide ? 'text-white text-[20px] sm:text-[24px]' : 'text-white/80 text-[13px] sm:text-[15px]'}`}>{name}</span>
                     <span className="font-ibm text-[9px] tracking-[0.1em] uppercase text-white/25">{cat}</span>
@@ -654,7 +679,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-2 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.03]">
                 {TOOLS.map(tool => (
                   <span key={tool}
-                    className="hoverable px-4 py-1.5 rounded-full font-inter text-[12px] font-medium border border-white/[0.07] bg-white/[0.03] text-white/45 cursor-default transition-all hover:-translate-y-0.5 hover:border-[#00e6c8]/40 hover:text-[#00e6c8]">
+                    className="tool-pill px-4 py-1.5 rounded-full font-inter text-[12px] font-medium border border-white/[0.07] bg-white/[0.03] text-white/45 cursor-default transition-all hover:-translate-y-0.5 hover:border-[#00e6c8]/40 hover:text-[#00e6c8]">
                     {tool}
                   </span>
                 ))}
@@ -681,15 +706,13 @@ export default function Home() {
             {/* 3-way CTA cards */}
             <div className="reveal grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
               {[
-                { icon: <Mail size={18} strokeWidth={2} />, label: 'Send an email', sub: 'saadkamaldev@gmail.com', href: 'mailto:saadkamaldev@gmail.com', cta: 'Email now' },
-                { icon: <BriefcaseBusiness size={18} strokeWidth={2} />, label: 'Connect on LinkedIn', sub: 'For remote job opportunities', href: 'https://www.linkedin.com/in/the-saadhere', cta: 'Open LinkedIn' },
-                { icon: <FolderGit2 size={18} strokeWidth={2} />, label: 'Browse my code', sub: 'github.com/The-Saadhere', href: 'https://github.com/The-Saadhere', cta: 'View GitHub' },
+                { icon: '✉', label: 'Send an email', sub: 'saadkamalshaikhdev@gmail.com', href: 'mailto:saadkamalshaikhdev@gmail.com', cta: 'Email now' },
+                { icon: '💼', label: 'Connect on LinkedIn', sub: 'For remote job opportunities', href: 'https://www.linkedin.com/in/saadkamal-shaikh-887449398/', cta: 'Open LinkedIn' },
+                { icon: '📂', label: 'Browse my code', sub: 'github.com/The-Saadhere', href: 'https://github.com/The-Saadhere', cta: 'View GitHub' },
               ].map(({ icon, label, sub, href, cta }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                   className="hoverable group flex flex-col gap-4 p-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] no-underline transition-all hover:border-[#00e6c8]/30 hover:bg-[#00e6c8]/[0.04] hover:-translate-y-1">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-white/[0.06] text-white">
-                    {icon}
-                  </div>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-white/[0.06]">{icon}</div>
                   <div>
                     <p className="font-playfair font-bold text-[16px] text-white mb-0.5">{label}</p>
                     <p className="font-ibm text-[10.5px] text-white/25 truncate">{sub}</p>
@@ -750,8 +773,8 @@ export default function Home() {
             <div className="flex gap-3">
               {[
                 { href: 'https://github.com/The-Saadhere', icon: <GithubIcon />, label: 'GitHub' },
-                { href: 'https://www.linkedin.com/in/the-saadhere', icon: <LinkedinIcon />, label: 'LinkedIn' },
-                { href: 'mailto:saadkamaldev@gmail.com', icon: <MailIcon />, label: 'Email' },
+                { href: 'https://www.linkedin.com/in/saadkamal-shaikh-887449398/', icon: <LinkedinIcon />, label: 'LinkedIn' },
+                { href: 'mailto:saadkamalshaikhdev@gmail.com', icon: <MailIcon />, label: 'Email' },
               ].map(({ href, icon, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
                   className="hoverable w-9 h-9 flex items-center justify-center rounded-xl border border-white/[0.07] text-white/30 no-underline transition-all hover:border-[#00e6c8]/40 hover:text-[#00e6c8]">
