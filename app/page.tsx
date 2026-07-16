@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, Package, Rocket, ShieldCheck, ShoppingBag, PanelsTopLeft, Link2, Zap, Mail, BriefcaseBusiness, FolderGit2 } from 'lucide-react'
+import { ArrowUpRight, Package, Rocket, ShieldCheck, Sparkles ,  ShoppingBag, PanelsTopLeft, Link2, Zap, Mail, BriefcaseBusiness, FolderGit2 } from 'lucide-react'
 
 type Status = 'idle' | 'sending' | 'ok' | 'err'
 
@@ -145,9 +145,9 @@ const SERVICES = [
   },
   {
     icon: <Zap size={22} strokeWidth={2} />,
-    title: 'Performance & Deployment',
-    desc: 'Production-ready deployments on Vercel with optimised load times, image handling, and zero-downtime launches.',
-    items: ['Next.js App Router & SSR','Vercel + CI/CD setup','Core Web Vitals optimisation'],
+    title: 'SaaS Product Development',
+    desc: 'End-to-end SaaS tools — from auth and subscriptions to usage dashboards — built to launch fast and scale with real users.',
+    items: ['Authenticated multi-user dashboards','Usage/analytics tracking per user','Built to launch fast, iterate faster'],
   },
 ]
 
@@ -388,27 +388,31 @@ export default function Home() {
 
               {/* Floating badges */}
               <div className="fa absolute hidden sm:flex items-center gap-3 rounded-xl px-4 py-3 border border-zinc-200 bg-white shadow-lg"
-                style={{ left: -58, bottom: 110 }}>
-                <span className="text-[20px]">🚀</span>
-                <div>
-                  <div className="font-playfair font-bold text-[22px] leading-none text-zinc-950">10+</div>
-                  <div className="font-ibm text-[9px] text-zinc-400 mt-1 tracking-wider uppercase">Projects</div>
-                </div>
-              </div>
+  style={{ left: -58, bottom: 110 }}>
+  <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-zinc-950">
+    <Rocket className="w-4 h-4 text-white" strokeWidth={2} />
+  </div>
+  <div>
+    <div className="font-playfair font-bold text-[22px] leading-none text-zinc-950">10+</div>
+    <div className="font-ibm text-[9px] text-zinc-400 mt-1 tracking-wider uppercase">Projects</div>
+  </div>
+</div>
 
-              <div className="fb absolute hidden sm:flex items-center gap-3 rounded-xl px-4 py-3 border border-zinc-200 bg-white shadow-lg"
-                style={{ right: -52, top: 95 }}>
-                <span className="text-[20px]">⚡</span>
-                <div>
-                  <div className="font-playfair font-bold text-[22px] leading-none text-zinc-950">Full</div>
-                  <div className="font-ibm text-[9px] text-zinc-400 mt-1 tracking-wider uppercase">Stack</div>
-                </div>
-              </div>
+<div className="fb absolute hidden sm:flex items-center gap-3 rounded-xl px-4 py-3 border border-zinc-200 bg-white shadow-lg"
+  style={{ right: -52, top: 95 }}>
+  <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-zinc-950">
+    <Zap className="w-4 h-4 text-white" strokeWidth={2} />
+  </div>
+  <div>
+    <div className="font-playfair font-bold text-[22px] leading-none text-zinc-950">Full</div>
+    <div className="font-ibm text-[9px] text-zinc-400 mt-1 tracking-wider uppercase">Stack</div>
+  </div>
+</div>
 
-              {/* Available tag */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-zinc-950 text-white font-ibm text-[10px] tracking-widest whitespace-nowrap shadow-lg">
-                Available now ✦
-              </div>
+{/* Available tag */}
+<div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-zinc-950 text-white font-ibm text-[10px] tracking-widest whitespace-nowrap shadow-lg flex items-center gap-1.5">
+  Available now <Sparkles className="w-3 h-3" />
+</div>
             </div>
           </div>
         </section>
