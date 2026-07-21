@@ -95,7 +95,7 @@ const MARQUEE = ['Next.js','TypeScript','React','MongoDB','Node.js','Tailwind CS
 
 const PROJECTS = [
   {
-    img: '/dp.png', title: 'Fashion Stylized', year: '2024', type: 'E-Commerce Platform',
+    img: '/dp.png', title: 'Fashion Stylized', year: '2026', type: 'E-Commerce Platform',
     desc: 'Full e-commerce platform with role-based auth (NextAuth), protected admin dashboard for product & order management, real-time inventory sync, transactional email via Resend, and end-to-end Zod validation.',
     highlights: [
       'Role-based access — only admins can modify products and orders',
@@ -107,7 +107,20 @@ const PROJECTS = [
     github: 'https://github.com/The-Saadhere/fashionstylized',
   },
   {
-    img: '/urlshortener.png', title: 'MiniLink', year: '2024', type: 'SaaS Tool',
+  img: "/vido-project.png", title: "Vido", year: '2026', type: "Video Streaming",
+  desc: "Vido is a modern video-sharing platform inspired by YouTube, built with Next.js, TypeScript, and ImageKit. It allows users to upload, stream, and share videos seamlessly, with a fast and responsive interface.",
+  highlights: [
+    'Video upload and streaming powered by ImageKit',
+    'JWT-based authentication with NextAuth.js',
+    'MongoDB + Mongoose data layer for users, videos, and metadata',
+  ],
+  tags: ['React 19', 'Next.js', 'TypeScript', 'Tailwind CSS', 'DaisyUI', 'MongoDB', 'Mongoose', 'NextAuth'],
+  live: "https://vido-flax.vercel.app/",
+  github: "https://github.com/The-Saadhere/Vido",
+},
+ 
+  {
+    img: '/urlshortener.png', title: 'MiniLink', year: '2025', type: 'SaaS Tool',
     desc: 'URL shortener with authenticated link management, per-link click analytics, and a dashboard to track all your short links in one place.',
     highlights: [],
     tags: ['Next.js','MongoDB','NextAuth'],
@@ -115,7 +128,7 @@ const PROJECTS = [
     github: 'https://github.com/The-Saadhere/MiniLink',
   },
   {
-    img: '/passopp.png', title: 'PassOp', year: '2024', type: 'Browser Tool',
+    img: '/passopp.png', title: 'PassOp', year: '2025', type: 'Browser Tool',
     desc: 'Lightweight password manager that saves, views, and manages credentials in the browser — no backend, no signup, instant access.',
     highlights: [],
     tags: ['React.js','JavaScript','LocalStorage'],
