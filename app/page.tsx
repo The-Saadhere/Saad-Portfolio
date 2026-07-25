@@ -104,7 +104,7 @@ const PROJECTS = [
     ],
     tags: ['Next.js','TypeScript','MongoDB','NextAuth','Zustand','Resend','Zod'],
     live: 'https://www.fashionstylized.store/',
-    github: 'https://github.com/The-Saadhere/fashionstylized',
+    github: 'https://github.com/The-Saadhere/Fashion-Stylized',
   },
   {
   img: "/vido-project.png", title: "Vido", year: '2026', type: "Video Streaming",
@@ -326,16 +326,15 @@ export default function Home() {
         )}
 
         {/* ══ HERO ══ */}
-        <section id="hero" className="page-grid min-h-screen grid grid-cols-1 md:grid-cols-2 pt-[65px] relative overflow-hidden">
+        <section id="hero" className="page-grid min-h-[100svh] grid grid-cols-1 md:grid-cols-2 pt-24 sm:pt-28 relative overflow-hidden">
 
           {/* Left */}
-          <div className="reveal flex flex-col justify-center px-5 sm:px-8 lg:px-14 py-16 md:py-0 relative z-10">
+          <div className="reveal flex flex-col justify-center px-5 sm:px-8 lg:px-14 py-16 md:py-0 relative z-10 mt-6 md:mt-0">
 
             {/* Status */}
-            <div className="inline-flex items-center gap-2 w-fit mb-8 px-4 py-2 rounded-full border border-zinc-200 bg-white">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-ibm text-[10px] tracking-[0.12em] text-zinc-400">OPEN FOR WORK — FREELANCE & REMOTE</span>
-            </div>
+            <p className="font-ibm text-[11px] tracking-[0.1em] text-zinc-400 mb-6">
+              Taking on freelance projects — reply within a day
+            </p>
 
             {/* Headline — Playfair editorial style */}
             <h1 className="font-playfair font-black leading-[0.9] tracking-[-0.02em] mb-2 text-zinc-950"
@@ -519,7 +518,7 @@ export default function Home() {
               <div className="relative min-h-[240px] md:min-h-0 bg-zinc-100 overflow-hidden">
                 <Image src="/dp.png" alt="Fashion Stylized" fill className="object-cover" />
                 <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm font-ibm text-[10px] text-zinc-400 border border-zinc-200">
-                  2024
+                  {PROJECTS[0].year}
                 </div>
               </div>
               <div className="p-7 sm:p-10 flex flex-col justify-center">
@@ -691,7 +690,7 @@ export default function Home() {
                 Ready to work <span className="accent italic">together?</span>
               </h2>
               <p className="font-inter text-[15px] text-white/40 max-w-[460px] mx-auto">
-                Whether you have a project or a remote role — I&apos;m open, available, and I reply fast.
+                Have a project in mind? I&apos;m open, available, and I reply fast.
               </p>
             </div>
 
@@ -699,7 +698,7 @@ export default function Home() {
             <div className="reveal grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
               {[
                 { icon: <Mail size={18} strokeWidth={2} />, label: 'Send an email', sub: 'saadkamaldev@gmail.com', href: 'mailto:saadkamaldev@gmail.com', cta: 'Email now' },
-                { icon: <BriefcaseBusiness size={18} strokeWidth={2} />, label: 'Connect on LinkedIn', sub: 'For remote job opportunities', href: 'https://www.linkedin.com/in/the-saadhere', cta: 'Open LinkedIn' },
+                { icon: <BriefcaseBusiness size={18} strokeWidth={2} />, label: 'Connect on LinkedIn', sub: 'For freelance inquiries', href: 'https://www.linkedin.com/in/the-saadhere', cta: 'Open LinkedIn' },
                 { icon: <FolderGit2 size={18} strokeWidth={2} />, label: 'Browse my code', sub: 'github.com/The-Saadhere', href: 'https://github.com/The-Saadhere', cta: 'View GitHub' },
               ].map(({ icon, label, sub, href, cta }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer"
