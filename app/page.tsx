@@ -66,15 +66,15 @@ function Cursor() {
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    const on = () => { dotRef.current?.classList.add('scale-[3]', '!bg-[rgba(0,230,200,0.5)]'); ringRef.current?.classList.add('!opacity-0') }
-    const off = () => { dotRef.current?.classList.remove('scale-[3]', '!bg-[rgba(0,230,200,0.5)]'); ringRef.current?.classList.remove('!opacity-0') }
+    const on = () => { dotRef.current?.classList.add('scale-[3]', '!bg-[rgba(194,105,74,0.5)]'); ringRef.current?.classList.add('!opacity-0') }
+    const off = () => { dotRef.current?.classList.remove('scale-[3]', '!bg-[rgba(194,105,74,0.5)]'); ringRef.current?.classList.remove('!opacity-0') }
     document.querySelectorAll('a,button,.hoverable').forEach(el => { el.addEventListener('mouseenter', on); el.addEventListener('mouseleave', off) })
     return () => { document.removeEventListener('mousemove', mv); cancelAnimationFrame(raf) }
   }, [])
   return (
     <>
-      <div ref={dotRef} className="fixed w-2.5 h-2.5 bg-[#00e6c8] rounded-full pointer-events-none z-[9999] transition-transform duration-100 hidden md:block" />
-      <div ref={ringRef} className="fixed w-8 h-8 border border-[#00e6c8]/40 rounded-full pointer-events-none z-[9998] hidden md:block transition-opacity duration-150" />
+      <div ref={dotRef} className="fixed w-2.5 h-2.5 bg-[#c2694a] rounded-full pointer-events-none z-[9999] transition-transform duration-100 hidden md:block" />
+      <div ref={ringRef} className="fixed w-8 h-8 border border-[#c2694a]/40 rounded-full pointer-events-none z-[9998] hidden md:block transition-opacity duration-150" />
     </>
   )
 }
@@ -185,7 +185,7 @@ const Tag = ({ label }: { label: string }) => (
 )
 
 const Eyebrow = ({ children, light }: { children: string; light?: boolean }) => (
-  <p className={`font-ibm text-[10.5px] tracking-[0.2em] uppercase mb-4 ${light ? 'text-[#00e6c8]' : 'text-zinc-400'}`}>
+  <p className={`font-ibm text-[10.5px] tracking-[0.2em] uppercase mb-4 ${light ? 'text-[#c2694a]' : 'text-zinc-400'}`}>
     {children}
   </p>
 )
@@ -211,9 +211,9 @@ export default function Home() {
   }
 
   const btnLabel = status === 'sending' ? 'Sending…' : status === 'ok' ? '✓ Sent!' : status === 'err' ? 'Failed — try again' : 'Send Message'
-  const btnBg = status === 'ok' ? 'bg-emerald-500 text-white' : status === 'err' ? 'bg-red-500 text-white' : 'bg-[#00e6c8] text-zinc-950 hover:brightness-110'
+  const btnBg = status === 'ok' ? 'bg-emerald-500 text-white' : status === 'err' ? 'bg-red-500 text-white' : 'bg-[#c2694a] text-white hover:brightness-110'
 
-  const inputCls = "w-full px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all bg-white/[0.04] border border-white/[0.08] text-white placeholder:text-white/20 focus:border-[#00e6c8]/50 focus:shadow-[0_0_0_3px_rgba(0,230,200,0.1)]"
+  const inputCls = "w-full px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all bg-white/[0.04] border border-white/[0.08] text-white placeholder:text-white/20 focus:border-[#c2694a]/50 focus:shadow-[0_0_0_3px_rgba(194,105,74,0.12)]"
 
   return (
     <>
@@ -257,26 +257,52 @@ export default function Home() {
         .rule { border-top: 1px solid rgba(0,0,0,0.08); }
         .rule-light { border-top: 1px solid rgba(255,255,255,0.07); }
 
-        /* Float */
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-        .fa { animation: float 4s ease-in-out infinite; }
-        .fb { animation: float 4s ease-in-out 1.6s infinite; }
-
         /* Project card */
         .proj-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
         .proj-card:hover { transform: translateY(-5px); box-shadow: 0 28px 56px rgba(0,0,0,0.08); }
 
         /* Service card hover */
         .svc-card { transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
-        .svc-card:hover { border-color: #00e6c8 !important; transform: translateY(-3px); }
+        .svc-card:hover { border-color: #c2694a !important; transform: translateY(-3px); }
 
         /* Skill tile */
         .skill-tile { transition: transform 0.18s ease, border-color 0.18s ease; }
-        .skill-tile:hover { transform: translateY(-3px); border-color: rgba(0,230,200,0.45) !important; }
+        .skill-tile:hover { transform: translateY(-3px); border-color: rgba(194,105,74,0.45) !important; }
 
         /* Accent text + line */
-        .accent { color: #00e6c8; }
-        .border-accent { border-color: #00e6c8; }
+        .accent { color: #c2694a; }
+        .border-accent { border-color: #c2694a; }
+
+        /* Hero — fits within short/small laptop viewports without scrolling.
+           Tailwind's clamp() above is width-driven only; these rules key off
+           viewport HEIGHT so a wide-but-short screen (e.g. 1366×768 with
+           browser chrome) still fits the whole hero without a scroll. */
+        #hero { padding-top: clamp(72px, 14svh, 112px) !important; min-height: 100svh; }
+        .hero-status { margin-bottom: clamp(10px, 2svh, 24px) !important; }
+        .hero-title {
+          font-size: clamp(34px, min(9vw, 9svh), 108px) !important;
+          margin-bottom: clamp(0px, 0.6svh, 8px) !important;
+        }
+        .hero-title.hero-title-last { margin-bottom: clamp(12px, 2.4svh, 32px) !important; }
+        .hero-sub { margin-bottom: clamp(14px, 2.6svh, 36px) !important; }
+        .hero-cta-row { margin-bottom: clamp(10px, 1.6svh, 16px) !important; }
+        .hero-cv-link { margin-bottom: clamp(12px, 2svh, 40px) !important; }
+        .hero-photo-wrap {
+          width: clamp(180px, 30svh, 350px) !important;
+          height: clamp(230px, 39svh, 455px) !important;
+        }
+        @media (max-height: 760px) {
+          .hero-cv-link { display: none !important; }
+        }
+
+        /* Primary CTA — distinct shape/weight from all other pill buttons */
+        .cta-primary {
+          border-radius: 14px;
+          font-weight: 700;
+          letter-spacing: 0.01em;
+          box-shadow: 0 10px 26px rgba(194,105,74,0.32);
+        }
+        .cta-primary:hover { box-shadow: 0 14px 32px rgba(194,105,74,0.42); }
       `}</style>
 
       <div className="font-inter bg-white text-zinc-950 overflow-x-hidden md:cursor-none">
@@ -300,7 +326,7 @@ export default function Home() {
               Email me
             </a>
             <a href="#contact"
-              className="hoverable font-inter text-[13px] font-semibold px-5 py-2.5 rounded-full bg-zinc-950 text-white no-underline transition-all hover:bg-[#00e6c8] hover:text-zinc-950">
+              className="cta-primary hoverable font-inter text-[13px] px-6 py-2.5 no-underline bg-[#c2694a] text-white transition-all hover:brightness-110 hover:-translate-y-0.5">
               Hire me
             </a>
           </div>
@@ -319,49 +345,50 @@ export default function Home() {
               </a>
             ))}
             <a href="mailto:saadkamaldev@gmail.com"
-              className="mt-3 text-center font-semibold text-[13px] py-3.5 rounded-full bg-zinc-950 text-white no-underline">
+              className="cta-primary mt-3 text-center text-[13px] py-3.5 bg-[#c2694a] text-white no-underline">
               Email me directly
             </a>
           </div>
         )}
 
         {/* ══ HERO ══ */}
-        <section id="hero" className="page-grid min-h-[100svh] grid grid-cols-1 md:grid-cols-2 pt-24 sm:pt-28 relative overflow-hidden">
+        <section id="hero" className="page-grid grid grid-cols-1 md:grid-cols-2 relative overflow-hidden">
 
           {/* Left */}
-          <div className="reveal flex flex-col justify-center px-5 sm:px-8 lg:px-14 py-16 md:py-0 relative z-10 mt-6 md:mt-0">
+          <div className="reveal flex flex-col justify-center px-5 sm:px-8 lg:px-14 py-10 md:py-0 relative z-10">
 
             {/* Status */}
-            <p className="font-ibm text-[11px] tracking-[0.1em] text-zinc-400 mb-6">
+            <p className="hero-status font-ibm text-[11px] tracking-[0.1em] text-zinc-400">
               Taking on freelance projects — reply within a day
             </p>
 
             {/* Headline — Playfair editorial style */}
-            <h1 className="font-playfair font-black leading-[0.9] tracking-[-0.02em] mb-2 text-zinc-950"
+            <h1 className="hero-title font-playfair font-black leading-[0.9] tracking-[-0.02em] text-zinc-950"
                 style={{ fontSize: 'clamp(54px,11vw,108px)' }}>
               Saad
             </h1>
-            <h1 className="font-playfair font-black leading-[0.9] tracking-[-0.02em] mb-2 text-zinc-950 italic"
+            <h1 className="hero-title font-playfair font-black leading-[0.9] tracking-[-0.02em] text-zinc-950 italic"
                 style={{ fontSize: 'clamp(54px,11vw,108px)' }}>
               Kamal
             </h1>
-            <h1 className="font-playfair font-black leading-[0.9] tracking-[-0.02em] mb-8 text-zinc-950"
+            <h1 className="hero-title hero-title-last font-playfair font-black leading-[0.9] tracking-[-0.02em] text-zinc-950"
                 style={{ fontSize: 'clamp(54px,11vw,108px)' }}>
               <span className="relative inline-block">
                 Develops.
-                <span className="absolute -bottom-1 left-0 right-0 h-[4px] rounded-full bg-[#00e6c8]" />
+                <span className="absolute -bottom-1 left-0 right-0 h-[4px] rounded-full bg-[#c2694a]" />
               </span>
             </h1>
 
-            <p className="font-inter text-[15px] sm:text-[17px] leading-[1.75] max-w-[400px] mb-9 text-zinc-500">
-              Full-stack developer crafting production-ready web apps.
-              Available for freelance projects and remote roles.
+            <p className="hero-sub font-inter text-[15px] sm:text-[17px] leading-[1.75] max-w-[400px] text-zinc-500">
+              I&apos;d rather spend an extra day on the auth flow than ship something that looks
+              fine and falls over the first time two people log in at once. Four of my projects
+              are live right now, handling real signups — not just localhost demos.
             </p>
 
             {/* CTAs */}
-            <div className="flex gap-3 flex-wrap mb-4">
+            <div className="hero-cta-row flex gap-3 flex-wrap">
               <a href="#projects"
-                className="hoverable inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-[#00e6c8] hover:text-zinc-950 hover:-translate-y-0.5">
+                className="hoverable inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-zinc-800 hover:-translate-y-0.5">
                 See my work <ArrowIcon />
               </a>
               <a href="#contact"
@@ -371,11 +398,11 @@ export default function Home() {
             </div>
 
             <a href="/resume.pdf" target="_blank" rel="noopener noreferrer"
-              className="hoverable inline-flex items-center gap-2 w-fit font-ibm text-[11px] text-zinc-400 no-underline transition-colors hover:text-zinc-950 mb-10 underline underline-offset-4">
+              className="hero-cv-link hoverable inline-flex items-center gap-2 w-fit font-ibm text-[11px] text-zinc-400 no-underline transition-colors hover:text-zinc-950 underline underline-offset-4">
               <DownloadIcon /> Download CV
             </a>
 
-            <div className="flex gap-2.5">
+            <div className="flex gap-2.5 mt-6">
               {[
                 { href: 'https://github.com/The-Saadhere', icon: <GithubIcon />, label: 'GitHub' },
                 { href: 'https://www.linkedin.com/in/the-saadhere', icon: <LinkedinIcon />, label: 'LinkedIn' },
@@ -390,41 +417,18 @@ export default function Home() {
           </div>
 
           {/* Right — photo */}
-          <div className="relative flex items-center justify-center py-10 md:py-0 overflow-hidden">
-            <div className="absolute w-80 h-80 rounded-full bg-[#00e6c8]/[0.07] blur-3xl" />
+          <div className="relative flex items-center justify-center py-8 md:py-0 overflow-hidden">
+            <div className="absolute w-80 h-80 rounded-full bg-[#c2694a]/[0.07] blur-3xl" />
 
-            <div className="relative w-[230px] h-[300px] sm:w-[280px] sm:h-[365px] md:w-[350px] md:h-[455px]">
+            <div className="hero-photo-wrap relative">
               <div className="photo-frame absolute inset-0 border border-zinc-200">
                 <Image src="/saad2.jpg" alt="Saad Kamal" fill className="object-cover" />
               </div>
 
-              {/* Floating badges */}
-              <div className="fa absolute hidden sm:flex items-center gap-3 rounded-xl px-4 py-3 border border-zinc-200 bg-white shadow-lg"
-  style={{ left: -58, bottom: 110 }}>
-  <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-zinc-950">
-    <Rocket className="w-4 h-4 text-white" strokeWidth={2} />
-  </div>
-  <div>
-    <div className="font-playfair font-bold text-[22px] leading-none text-zinc-950">10+</div>
-    <div className="font-ibm text-[9px] text-zinc-400 mt-1 tracking-wider uppercase">Projects</div>
-  </div>
-</div>
-
-<div className="fb absolute hidden sm:flex items-center gap-3 rounded-xl px-4 py-3 border border-zinc-200 bg-white shadow-lg"
-  style={{ right: -52, top: 95 }}>
-  <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-zinc-950">
-    <Zap className="w-4 h-4 text-white" strokeWidth={2} />
-  </div>
-  <div>
-    <div className="font-playfair font-bold text-[22px] leading-none text-zinc-950">Full</div>
-    <div className="font-ibm text-[9px] text-zinc-400 mt-1 tracking-wider uppercase">Stack</div>
-  </div>
-</div>
-
-{/* Available tag */}
-<div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-zinc-950 text-white font-ibm text-[10px] tracking-widest whitespace-nowrap shadow-lg flex items-center gap-1.5">
-  Available now <Sparkles className="w-3 h-3" />
-</div>
+              {/* Available tag */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-zinc-950 text-white font-ibm text-[10px] tracking-widest whitespace-nowrap shadow-lg flex items-center gap-1.5">
+                Available now <Sparkles className="w-3 h-3" />
+              </div>
             </div>
           </div>
         </section>
@@ -451,11 +455,11 @@ export default function Home() {
             </div>
             <div className="flex gap-3 shrink-0 flex-wrap">
               <a href="mailto:saadkamaldev@gmail.com"
-                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline bg-[#00e6c8] text-zinc-950 transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
+                className="cta-primary hoverable inline-flex items-center gap-2 px-6 py-3 text-[13px] no-underline bg-[#c2694a] text-white transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
                 Email me now <ArrowIcon />
               </a>
               <a href="https://www.linkedin.com/in/the-saadhere" target="_blank" rel="noopener noreferrer"
-                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#00e6c8]/50 hover:text-[#00e6c8] hover:-translate-y-0.5 whitespace-nowrap">
+                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#c2694a]/50 hover:text-[#c2694a] hover:-translate-y-0.5 whitespace-nowrap">
                 <LinkedinIcon /> LinkedIn
               </a>
             </div>
@@ -473,15 +477,18 @@ export default function Home() {
                 I build things<br />for the <span className="accent italic">web.</span>
               </h2>
               <p className="font-inter text-[15px] sm:text-[16px] leading-[1.8] text-white/50 mb-5">
-                Self-driven full-stack developer based in Karachi. I care about the whole product —
-                clean APIs, secure auth, intuitive UIs, and fast deploys.
+                I&apos;m based in Karachi, and I taught myself most of this by breaking things in
+                production — my own projects, on my own dime, not a bootcamp sandbox. That&apos;s
+                probably why I care more about the boring parts — auth, validation, error states —
+                than the parts that look good in a screenshot.
               </p>
               <p className="font-inter text-[15px] sm:text-[16px] leading-[1.8] text-white/50 mb-8">
-                I&apos;ve shipped production apps handling real users and real data. Every project I own
-                fully — from the DB schema to the last pixel.
+                Four of the projects below are live right now — real signups, real orders, real
+                edge cases nobody warned me about. I own every layer myself, which means when
+                something breaks at 2am, I&apos;m the one who gets the alert and fixes it.
               </p>
               <blockquote className="border-l-2 border-accent pl-5 font-playfair font-bold text-[18px] sm:text-[22px] text-white leading-[1.4] italic">
-                &ldquo;From concept to deployment — I enjoy owning the full lifecycle.&rdquo;
+                &ldquo;A project isn&apos;t done when the demo works — it&apos;s done when it survives real users.&rdquo;
               </blockquote>
             </div>
 
@@ -491,7 +498,7 @@ export default function Home() {
                 { icon: <Package size={18} strokeWidth={2.2} />, title: 'Full Ownership', desc: 'DB schema, API design, frontend state, CI/CD — I own the full stack so nothing falls through.' },
                 { icon: <Rocket size={18} strokeWidth={2.2} />, title: 'Ships on Time', desc: 'I build iteratively and deploy early. You always know where things stand.' },
               ].map(({ icon, title, desc }, i) => (
-                <div key={title} className={`reveal d${i+1} hoverable group rounded-2xl p-6 border border-white/[0.07] bg-white/[0.03] transition-all hover:border-[#00e6c8]/30 hover:bg-[#00e6c8]/[0.04] hover:translate-x-1.5`}>
+                <div key={title} className={`reveal d${i+1} hoverable group rounded-2xl p-6 border border-white/[0.07] bg-white/[0.03] transition-all hover:border-[#c2694a]/30 hover:bg-[#c2694a]/[0.04] hover:translate-x-1.5`}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 bg-white/[0.06] text-white">{icon}</div>
                   <h3 className="font-playfair font-bold text-[17px] text-white mb-1.5">{title}</h3>
                   <p className="font-inter text-[13px] leading-relaxed text-white/40">{desc}</p>
@@ -523,7 +530,7 @@ export default function Home() {
               </div>
               <div className="p-7 sm:p-10 flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-4 flex-wrap">
-                  <span className="font-ibm text-[10px] tracking-[0.1em] uppercase accent border border-[#00e6c8]/25 bg-[#00e6c8]/[0.07] rounded-full px-3 py-1">✦ Featured</span>
+                  <span className="font-ibm text-[10px] tracking-[0.1em] uppercase accent border border-[#c2694a]/25 bg-[#c2694a]/[0.07] rounded-full px-3 py-1">✦ Featured</span>
                   <span className="font-ibm text-[10px] tracking-[0.08em] uppercase text-zinc-400">E-Commerce</span>
                 </div>
                 <h3 className="font-playfair font-bold text-[26px] sm:text-[34px] tracking-tight leading-[1.05] mb-3 text-zinc-950">
@@ -540,7 +547,7 @@ export default function Home() {
                 <div className="flex flex-wrap gap-1.5 mb-7">{PROJECTS[0].tags.map(t => <Tag key={t} label={t} />)}</div>
                 <div className="flex gap-3 flex-wrap">
                   <a href={PROJECTS[0].live} target="_blank" rel="noopener noreferrer"
-                    className="hoverable inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-[#00e6c8] hover:text-zinc-950 hover:-translate-y-0.5">
+                    className="hoverable inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-zinc-800 hover:-translate-y-0.5">
                     Live demo <ArrowIcon />
                   </a>
                   <a href={PROJECTS[0].github} target="_blank" rel="noopener noreferrer"
@@ -567,7 +574,7 @@ export default function Home() {
                     <div className="flex flex-wrap gap-1.5 mb-5">{p.tags.map(t => <Tag key={t} label={t} />)}</div>
                     <div className="flex gap-2.5 flex-wrap">
                       <a href={p.live} target="_blank" rel="noopener noreferrer"
-                        className="hoverable inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-[#00e6c8] hover:text-zinc-950 hover:-translate-y-0.5">
+                        className="hoverable inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-semibold no-underline bg-zinc-950 text-white transition-all hover:bg-zinc-800 hover:-translate-y-0.5">
                         Live <ArrowIcon />
                       </a>
                       <a href={p.github} target="_blank" rel="noopener noreferrer"
@@ -588,11 +595,11 @@ export default function Home() {
               </div>
               <div className="flex gap-3 shrink-0 flex-wrap">
                 <a href="#contact"
-                  className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline bg-[#00e6c8] text-zinc-950 transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
+                  className="cta-primary hoverable inline-flex items-center gap-2 px-6 py-3 text-[13px] no-underline bg-[#c2694a] text-white transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
                   Start a project <ArrowIcon />
                 </a>
                 <a href="https://github.com/The-Saadhere" target="_blank" rel="noopener noreferrer"
-                  className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#00e6c8]/50 hover:text-[#00e6c8] hover:-translate-y-0.5 whitespace-nowrap">
+                  className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#c2694a]/50 hover:text-[#c2694a] hover:-translate-y-0.5 whitespace-nowrap">
                   View GitHub
                 </a>
               </div>
@@ -610,7 +617,7 @@ export default function Home() {
                 Services I <span className="italic accent">Offer</span>
               </h2>
               <a href="#contact"
-                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white self-start md:self-auto transition-all hover:bg-[#00e6c8] hover:text-zinc-950 hover:-translate-y-0.5 shrink-0">
+                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline bg-zinc-950 text-white self-start md:self-auto transition-all hover:bg-zinc-800 hover:-translate-y-0.5 shrink-0">
                 Discuss your project <ArrowIcon />
               </a>
             </div>
@@ -624,7 +631,7 @@ export default function Home() {
                   <ul className="flex flex-col gap-2">
                     {items.map(item => (
                       <li key={item} className="flex items-center gap-2.5 text-[12.5px] font-inter text-zinc-600">
-                        <span className="w-4 h-4 rounded-full bg-[#00e6c8]/15 flex items-center justify-center accent shrink-0">
+                        <span className="w-4 h-4 rounded-full bg-[#c2694a]/15 flex items-center justify-center accent shrink-0">
                           <CheckIcon />
                         </span>
                         {item}
@@ -651,7 +658,7 @@ export default function Home() {
                 A modern stack for building secure, scalable, production-ready web apps — front to back.
               </p>
               <a href="https://www.linkedin.com/in/the-saadhere" target="_blank" rel="noopener noreferrer"
-                className="hoverable inline-flex items-center gap-2 px-5 py-3 rounded-full text-[13px] font-semibold no-underline bg-[#00e6c8] text-zinc-950 transition-all hover:brightness-110 hover:-translate-y-0.5">
+                className="cta-primary hoverable inline-flex items-center gap-2 px-5 py-3 text-[13px] no-underline bg-[#c2694a] text-white transition-all hover:brightness-110 hover:-translate-y-0.5">
                 View LinkedIn <ArrowIcon />
               </a>
             </div>
@@ -670,7 +677,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-2 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.03]">
                 {TOOLS.map(tool => (
                   <span key={tool}
-                    className="hoverable px-4 py-1.5 rounded-full font-inter text-[12px] font-medium border border-white/[0.07] bg-white/[0.03] text-white/45 cursor-default transition-all hover:-translate-y-0.5 hover:border-[#00e6c8]/40 hover:text-[#00e6c8]">
+                    className="hoverable px-4 py-1.5 rounded-full font-inter text-[12px] font-medium border border-white/[0.07] bg-white/[0.03] text-white/45 cursor-default transition-all hover:-translate-y-0.5 hover:border-[#c2694a]/40 hover:text-[#c2694a]">
                     {tool}
                   </span>
                 ))}
@@ -702,7 +709,7 @@ export default function Home() {
                 { icon: <FolderGit2 size={18} strokeWidth={2} />, label: 'Browse my code', sub: 'github.com/The-Saadhere', href: 'https://github.com/The-Saadhere', cta: 'View GitHub' },
               ].map(({ icon, label, sub, href, cta }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                  className="hoverable group flex flex-col gap-4 p-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] no-underline transition-all hover:border-[#00e6c8]/30 hover:bg-[#00e6c8]/[0.04] hover:-translate-y-1">
+                  className="hoverable group flex flex-col gap-4 p-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] no-underline transition-all hover:border-[#c2694a]/30 hover:bg-[#c2694a]/[0.04] hover:-translate-y-1">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-white/[0.06] text-white">
                     {icon}
                   </div>
@@ -750,7 +757,7 @@ export default function Home() {
                   placeholder="Tell me about your project or opportunity…" className={inputCls} style={{ resize: 'none' }} />
               </div>
               <button onClick={handleSend} disabled={status === 'sending'}
-                className={`w-full py-4 rounded-xl font-playfair font-bold text-[15px] flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 disabled:opacity-50 ${btnBg}`}>
+                className={`cta-primary w-full py-4 font-playfair text-[15px] flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 disabled:opacity-50 ${btnBg}`}>
                 <SendIcon />{btnLabel}
               </button>
             </div>
@@ -770,7 +777,7 @@ export default function Home() {
                 { href: 'mailto:saadkamaldev@gmail.com', icon: <MailIcon />, label: 'Email' },
               ].map(({ href, icon, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
-                  className="hoverable w-9 h-9 flex items-center justify-center rounded-xl border border-white/[0.07] text-white/30 no-underline transition-all hover:border-[#00e6c8]/40 hover:text-[#00e6c8]">
+                  className="hoverable w-9 h-9 flex items-center justify-center rounded-xl border border-white/[0.07] text-white/30 no-underline transition-all hover:border-[#c2694a]/40 hover:text-[#c2694a]">
                   {icon}
                 </a>
               ))}
