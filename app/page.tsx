@@ -66,15 +66,15 @@ function Cursor() {
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    const on = () => { dotRef.current?.classList.add('scale-[3]', '!bg-[rgba(194,105,74,0.5)]'); ringRef.current?.classList.add('!opacity-0') }
-    const off = () => { dotRef.current?.classList.remove('scale-[3]', '!bg-[rgba(194,105,74,0.5)]'); ringRef.current?.classList.remove('!opacity-0') }
+    const on = () => { dotRef.current?.classList.add('scale-[3]', '!bg-[rgba(59,130,246,0.5)]'); ringRef.current?.classList.add('!opacity-0') }
+    const off = () => { dotRef.current?.classList.remove('scale-[3]', '!bg-[rgba(59,130,246,0.5)]'); ringRef.current?.classList.remove('!opacity-0') }
     document.querySelectorAll('a,button,.hoverable').forEach(el => { el.addEventListener('mouseenter', on); el.addEventListener('mouseleave', off) })
     return () => { document.removeEventListener('mousemove', mv); cancelAnimationFrame(raf) }
   }, [])
   return (
     <>
-      <div ref={dotRef} className="fixed w-2.5 h-2.5 bg-[#c2694a] rounded-full pointer-events-none z-[9999] transition-transform duration-100 hidden md:block" />
-      <div ref={ringRef} className="fixed w-8 h-8 border border-[#c2694a]/40 rounded-full pointer-events-none z-[9998] hidden md:block transition-opacity duration-150" />
+      <div ref={dotRef} className="fixed w-2.5 h-2.5 bg-[#3B82F6] rounded-full pointer-events-none z-[9999] transition-transform duration-100 hidden md:block" />
+      <div ref={ringRef} className="fixed w-8 h-8 border border-[#3B82F6]/40 rounded-full pointer-events-none z-[9998] hidden md:block transition-opacity duration-150" />
     </>
   )
 }
@@ -185,7 +185,7 @@ const Tag = ({ label }: { label: string }) => (
 )
 
 const Eyebrow = ({ children, light }: { children: string; light?: boolean }) => (
-  <p className={`font-ibm text-[10.5px] tracking-[0.2em] uppercase mb-4 ${light ? 'text-[#c2694a]' : 'text-zinc-400'}`}>
+  <p className={`font-ibm text-[10.5px] tracking-[0.2em] uppercase mb-4 ${light ? 'text-[#3B82F6]' : 'text-zinc-400'}`}>
     {children}
   </p>
 )
@@ -211,9 +211,9 @@ export default function Home() {
   }
 
   const btnLabel = status === 'sending' ? 'Sending…' : status === 'ok' ? '✓ Sent!' : status === 'err' ? 'Failed — try again' : 'Send Message'
-  const btnBg = status === 'ok' ? 'bg-emerald-500 text-white' : status === 'err' ? 'bg-red-500 text-white' : 'bg-[#c2694a] text-white hover:brightness-110'
+  const btnBg = status === 'ok' ? 'bg-emerald-500 text-white' : status === 'err' ? 'bg-red-500 text-white' : 'bg-[#3B82F6] text-white hover:brightness-110'
 
-  const inputCls = "w-full px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all bg-white/[0.04] border border-white/[0.08] text-white placeholder:text-white/20 focus:border-[#c2694a]/50 focus:shadow-[0_0_0_3px_rgba(194,105,74,0.12)]"
+  const inputCls = "w-full px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all bg-white/[0.04] border border-white/[0.08] text-white placeholder:text-white/20 focus:border-[#3B82F6]/50 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]"
 
   return (
     <>
@@ -263,15 +263,15 @@ export default function Home() {
 
         /* Service card hover */
         .svc-card { transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease; }
-        .svc-card:hover { border-color: #c2694a !important; transform: translateY(-3px); }
+        .svc-card:hover { border-color: #3B82F6 !important; transform: translateY(-3px); }
 
         /* Skill tile */
         .skill-tile { transition: transform 0.18s ease, border-color 0.18s ease; }
-        .skill-tile:hover { transform: translateY(-3px); border-color: rgba(194,105,74,0.45) !important; }
+        .skill-tile:hover { transform: translateY(-3px); border-color: rgba(59,130,246,0.45) !important; }
 
         /* Accent text + line */
-        .accent { color: #c2694a; }
-        .border-accent { border-color: #c2694a; }
+        .accent { color: #3B82F6; }
+        .border-accent { border-color: #3B82F6; }
 
         /* Hero — fits within short/small laptop viewports without scrolling.
            Tailwind's clamp() above is width-driven only; these rules key off
@@ -300,9 +300,9 @@ export default function Home() {
           border-radius: 14px;
           font-weight: 700;
           letter-spacing: 0.01em;
-          box-shadow: 0 10px 26px rgba(194,105,74,0.32);
+          box-shadow: 0 10px 26px rgba(59,130,246,0.32);
         }
-        .cta-primary:hover { box-shadow: 0 14px 32px rgba(194,105,74,0.42); }
+        .cta-primary:hover { box-shadow: 0 14px 32px rgba(59,130,246,0.42); }
       `}</style>
 
       <div className="font-inter bg-white text-zinc-950 overflow-x-hidden md:cursor-none">
@@ -326,7 +326,7 @@ export default function Home() {
               Email me
             </a>
             <a href="#contact"
-              className="cta-primary hoverable font-inter text-[13px] px-6 py-2.5 no-underline bg-[#c2694a] text-white transition-all hover:brightness-110 hover:-translate-y-0.5">
+              className="cta-primary hoverable font-inter text-[13px] px-6 py-2.5 no-underline bg-[#3B82F6] text-white transition-all hover:brightness-110 hover:-translate-y-0.5">
               Hire me
             </a>
           </div>
@@ -345,7 +345,7 @@ export default function Home() {
               </a>
             ))}
             <a href="mailto:saadkamaldev@gmail.com"
-              className="cta-primary mt-3 text-center text-[13px] py-3.5 bg-[#c2694a] text-white no-underline">
+              className="cta-primary mt-3 text-center text-[13px] py-3.5 bg-[#3B82F6] text-white no-underline">
               Email me directly
             </a>
           </div>
@@ -375,7 +375,7 @@ export default function Home() {
                 style={{ fontSize: 'clamp(54px,11vw,108px)' }}>
               <span className="relative inline-block">
                 Develops.
-                <span className="absolute -bottom-1 left-0 right-0 h-[4px] rounded-full bg-[#c2694a]" />
+                <span className="absolute -bottom-1 left-0 right-0 h-[4px] rounded-full bg-[#3B82F6]" />
               </span>
             </h1>
 
@@ -418,7 +418,7 @@ export default function Home() {
 
           {/* Right — photo */}
           <div className="relative flex items-center justify-center py-8 md:py-0 overflow-hidden">
-            <div className="absolute w-80 h-80 rounded-full bg-[#c2694a]/[0.07] blur-3xl" />
+            <div className="absolute w-80 h-80 rounded-full bg-[#3B82F6]/[0.07] blur-3xl" />
 
             <div className="hero-photo-wrap relative">
               <div className="photo-frame absolute inset-0 border border-zinc-200">
@@ -455,11 +455,11 @@ export default function Home() {
             </div>
             <div className="flex gap-3 shrink-0 flex-wrap">
               <a href="mailto:saadkamaldev@gmail.com"
-                className="cta-primary hoverable inline-flex items-center gap-2 px-6 py-3 text-[13px] no-underline bg-[#c2694a] text-white transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
+                className="cta-primary hoverable inline-flex items-center gap-2 px-6 py-3 text-[13px] no-underline bg-[#3B82F6] text-white transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
                 Email me now <ArrowIcon />
               </a>
               <a href="https://www.linkedin.com/in/the-saadhere" target="_blank" rel="noopener noreferrer"
-                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#c2694a]/50 hover:text-[#c2694a] hover:-translate-y-0.5 whitespace-nowrap">
+                className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#3B82F6]/50 hover:text-[#3B82F6] hover:-translate-y-0.5 whitespace-nowrap">
                 <LinkedinIcon /> LinkedIn
               </a>
             </div>
@@ -498,7 +498,7 @@ export default function Home() {
                 { icon: <Package size={18} strokeWidth={2.2} />, title: 'Full Ownership', desc: 'DB schema, API design, frontend state, CI/CD — I own the full stack so nothing falls through.' },
                 { icon: <Rocket size={18} strokeWidth={2.2} />, title: 'Ships on Time', desc: 'I build iteratively and deploy early. You always know where things stand.' },
               ].map(({ icon, title, desc }, i) => (
-                <div key={title} className={`reveal d${i+1} hoverable group rounded-2xl p-6 border border-white/[0.07] bg-white/[0.03] transition-all hover:border-[#c2694a]/30 hover:bg-[#c2694a]/[0.04] hover:translate-x-1.5`}>
+                <div key={title} className={`reveal d${i+1} hoverable group rounded-2xl p-6 border border-white/[0.07] bg-white/[0.03] transition-all hover:border-[#3B82F6]/30 hover:bg-[#3B82F6]/[0.04] hover:translate-x-1.5`}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-3 bg-white/[0.06] text-white">{icon}</div>
                   <h3 className="font-playfair font-bold text-[17px] text-white mb-1.5">{title}</h3>
                   <p className="font-inter text-[13px] leading-relaxed text-white/40">{desc}</p>
@@ -530,7 +530,7 @@ export default function Home() {
               </div>
               <div className="p-7 sm:p-10 flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-4 flex-wrap">
-                  <span className="font-ibm text-[10px] tracking-[0.1em] uppercase accent border border-[#c2694a]/25 bg-[#c2694a]/[0.07] rounded-full px-3 py-1">✦ Featured</span>
+                  <span className="font-ibm text-[10px] tracking-[0.1em] uppercase accent border border-[#3B82F6]/25 bg-[#3B82F6]/[0.07] rounded-full px-3 py-1">✦ Featured</span>
                   <span className="font-ibm text-[10px] tracking-[0.08em] uppercase text-zinc-400">E-Commerce</span>
                 </div>
                 <h3 className="font-playfair font-bold text-[26px] sm:text-[34px] tracking-tight leading-[1.05] mb-3 text-zinc-950">
@@ -595,11 +595,11 @@ export default function Home() {
               </div>
               <div className="flex gap-3 shrink-0 flex-wrap">
                 <a href="#contact"
-                  className="cta-primary hoverable inline-flex items-center gap-2 px-6 py-3 text-[13px] no-underline bg-[#c2694a] text-white transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
+                  className="cta-primary hoverable inline-flex items-center gap-2 px-6 py-3 text-[13px] no-underline bg-[#3B82F6] text-white transition-all hover:brightness-110 hover:-translate-y-0.5 whitespace-nowrap">
                   Start a project <ArrowIcon />
                 </a>
                 <a href="https://github.com/The-Saadhere" target="_blank" rel="noopener noreferrer"
-                  className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#c2694a]/50 hover:text-[#c2694a] hover:-translate-y-0.5 whitespace-nowrap">
+                  className="hoverable inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline border border-white/10 text-white transition-all hover:border-[#3B82F6]/50 hover:text-[#3B82F6] hover:-translate-y-0.5 whitespace-nowrap">
                   View GitHub
                 </a>
               </div>
@@ -631,7 +631,7 @@ export default function Home() {
                   <ul className="flex flex-col gap-2">
                     {items.map(item => (
                       <li key={item} className="flex items-center gap-2.5 text-[12.5px] font-inter text-zinc-600">
-                        <span className="w-4 h-4 rounded-full bg-[#c2694a]/15 flex items-center justify-center accent shrink-0">
+                        <span className="w-4 h-4 rounded-full bg-[#3B82F6]/15 flex items-center justify-center accent shrink-0">
                           <CheckIcon />
                         </span>
                         {item}
@@ -658,7 +658,7 @@ export default function Home() {
                 A modern stack for building secure, scalable, production-ready web apps — front to back.
               </p>
               <a href="https://www.linkedin.com/in/the-saadhere" target="_blank" rel="noopener noreferrer"
-                className="cta-primary hoverable inline-flex items-center gap-2 px-5 py-3 text-[13px] no-underline bg-[#c2694a] text-white transition-all hover:brightness-110 hover:-translate-y-0.5">
+                className="cta-primary hoverable inline-flex items-center gap-2 px-5 py-3 text-[13px] no-underline bg-[#3B82F6] text-white transition-all hover:brightness-110 hover:-translate-y-0.5">
                 View LinkedIn <ArrowIcon />
               </a>
             </div>
@@ -677,7 +677,7 @@ export default function Home() {
               <div className="flex flex-wrap gap-2 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.03]">
                 {TOOLS.map(tool => (
                   <span key={tool}
-                    className="hoverable px-4 py-1.5 rounded-full font-inter text-[12px] font-medium border border-white/[0.07] bg-white/[0.03] text-white/45 cursor-default transition-all hover:-translate-y-0.5 hover:border-[#c2694a]/40 hover:text-[#c2694a]">
+                    className="hoverable px-4 py-1.5 rounded-full font-inter text-[12px] font-medium border border-white/[0.07] bg-white/[0.03] text-white/45 cursor-default transition-all hover:-translate-y-0.5 hover:border-[#3B82F6]/40 hover:text-[#3B82F6]">
                     {tool}
                   </span>
                 ))}
@@ -709,7 +709,7 @@ export default function Home() {
                 { icon: <FolderGit2 size={18} strokeWidth={2} />, label: 'Browse my code', sub: 'github.com/The-Saadhere', href: 'https://github.com/The-Saadhere', cta: 'View GitHub' },
               ].map(({ icon, label, sub, href, cta }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                  className="hoverable group flex flex-col gap-4 p-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] no-underline transition-all hover:border-[#c2694a]/30 hover:bg-[#c2694a]/[0.04] hover:-translate-y-1">
+                  className="hoverable group flex flex-col gap-4 p-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] no-underline transition-all hover:border-[#3B82F6]/30 hover:bg-[#3B82F6]/[0.04] hover:-translate-y-1">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg bg-white/[0.06] text-white">
                     {icon}
                   </div>
@@ -777,7 +777,7 @@ export default function Home() {
                 { href: 'mailto:saadkamaldev@gmail.com', icon: <MailIcon />, label: 'Email' },
               ].map(({ href, icon, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
-                  className="hoverable w-9 h-9 flex items-center justify-center rounded-xl border border-white/[0.07] text-white/30 no-underline transition-all hover:border-[#c2694a]/40 hover:text-[#c2694a]">
+                  className="hoverable w-9 h-9 flex items-center justify-center rounded-xl border border-white/[0.07] text-white/30 no-underline transition-all hover:border-[#3B82F6]/40 hover:text-[#3B82F6]">
                   {icon}
                 </a>
               ))}
