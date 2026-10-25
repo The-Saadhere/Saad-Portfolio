@@ -1,30 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins, Inter, Playfair_Display, IBM_Plex_Mono } from "next/font/google";
+import { Fraunces, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const instrument = Instrument_Sans({
+  variable: "--font-instrument",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["700", "800", "900"],
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-ibm-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  display: "swap",
 });
 
 const siteUrl = "https://saadkamal.vercel.app";
@@ -32,23 +20,23 @@ const siteUrl = "https://saadkamal.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Saad Kamal Shaikh | Full Stack Developer",
+    default: "Saad Kamal Shaikh | Full Stack Developer in Karachi",
     template: "%s | Saad Kamal Shaikh",
   },
   description:
-    "Saad Kamal Shaikh is a full stack developer building fast, secure web apps with Next.js, React, and TypeScript. Available for freelance projects.",
+    "Saad Kamal Shaikh is a full stack developer in Karachi building online stores, web apps and SaaS products with Next.js, TypeScript and MongoDB. Available for freelance work.",
   keywords: [
     "Saad Kamal Shaikh",
+    "Saad Kamal",
     "Full Stack Developer",
     "Next.js Developer",
-    "React Developer",
-    "TypeScript Developer",
-    "Freelance Web Developer",
+    "Freelance Web Developer Pakistan",
     "Karachi Developer",
     "MERN Stack Developer",
   ],
   authors: [{ name: "Saad Kamal Shaikh", url: siteUrl }],
   creator: "Saad Kamal Shaikh",
+  alternates: { canonical: "/" },
   robots: {
     index: true,
     follow: true,
@@ -56,37 +44,30 @@ export const metadata: Metadata = {
       index: true,
       follow: true,
       "max-image-preview": "large",
+      "max-snippet": -1,
     },
-  },
-  alternates: {
-    canonical: siteUrl,
   },
   openGraph: {
     type: "website",
     url: siteUrl,
     title: "Saad Kamal Shaikh | Full Stack Developer",
     description:
-      "Full stack developer building fast, secure web apps with Next.js, React, and TypeScript. Available for freelance projects.",
-    siteName: "Saad Kamal Shaikh — Portfolio",
-    images: [
-      {
-        url: "/saad2.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Saad Kamal Shaikh — Full Stack Developer Portfolio",
-      },
-    ],
+      "Online stores, web apps and SaaS products built end to end with Next.js, TypeScript and MongoDB.",
+    siteName: "Saad Kamal Shaikh Portfolio",
+    locale: "en_US",
+    // image comes automatically from app/opengraph-image.tsx
   },
   twitter: {
     card: "summary_large_image",
     title: "Saad Kamal Shaikh | Full Stack Developer",
     description:
-      "Full stack developer building fast, secure web apps with Next.js, React, and TypeScript.",
-    images: ["/og-image.png"],
+      "Online stores, web apps and SaaS products built end to end with Next.js, TypeScript and MongoDB.",
   },
+  // After Search Console gives you the code, uncomment and paste it:
+  // verification: { google: "YOUR_CODE_HERE" },
+  // Remove this block if you use app/favicon.ico instead:
   icons: {
     icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
@@ -98,16 +79,37 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Saad Kamal Shaikh",
+  alternateName: "Saad Kamal",
+  url: siteUrl,
+  jobTitle: "Full Stack Developer",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Karachi",
+    addressCountry: "PK",
+  },
+  knowsAbout: ["Next.js", "React", "TypeScript", "Node.js", "MongoDB", "Tailwind CSS"],
+  sameAs: [
+    "https://github.com/The-Saadhere",
+    "https://www.linkedin.com/in/the-saadhere",
+  ],
+};
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${ibmPlexMono.variable} antialiased`}
-      >
+      <body className={`${fraunces.variable} ${instrument.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <Analytics />
         {children}
       </body>
