@@ -64,7 +64,7 @@ export const metadata: Metadata = {
       "Online stores, web apps and SaaS products built end to end with Next.js, TypeScript and MongoDB.",
   },
   // After Search Console gives you the code, uncomment and paste it:
-  // verification: { google: "YOUR_CODE_HERE" },
+  verification: { google: "-tRjrFAT8T2NPSLZ_U6kOfaYn1zL6Zw6nps1YQrSY_c" },
   // Remove this block if you use app/favicon.ico instead:
   icons: {
     icon: "/favicon.ico",
